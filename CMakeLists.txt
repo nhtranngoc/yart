@@ -3,8 +3,9 @@ cmake_minimum_required(VERSION 3.10)
 project(yart)
 
 add_subdirectory(src)
-add_subdirectory(tests)
 add_subdirectory(lib/googletest)
+enable_testing()
+add_subdirectory(tests)
 
 
 # # Now simply link against gtest or gtest_main as needed. Eg

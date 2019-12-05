@@ -16,3 +16,5 @@ make run
 
 https://github.com/google/googletest/blob/master/googletest/README.md
 
+https://github.com/gujans/travis-gtest-cmake-example
+
