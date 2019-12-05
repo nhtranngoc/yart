@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.10)
 
 project(yart)
 
+set(CMAKE_CXX_FLAGS "-Wall -pedantic -Werror -Wno-variadic-macros -Wno-long-long -Wno-shadow -std=c++11")
+
 add_subdirectory(src)
 add_subdirectory(lib/googletest)
 enable_testing()
