@@ -1,4 +1,6 @@
 # Yet Another Ray Tracer (YART)
+[![Build Status](https://travis-ci.com/nhtranngoc/yart.svg?branch=master)](https://travis-ci.com/nhtranngoc/yart)
+
 
 Inspired by ["The Ray Tracer Challenge"](http://www.raytracerchallenge.com/), a book by Jamis Buck, I set out to build a ray tracer in C++ as an attempt to transition from C and practicing test-driven development.
 
