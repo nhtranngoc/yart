@@ -40,3 +40,12 @@ TEST(tupleFeatures, createVector) {
 	ASSERT_EQ(tp.isPoint(), false);
 	ASSERT_EQ(tp.isVector(), true);
 }
+
+// TEST(tupleFeatures, addTuples) {
+// 	Tuple a1(3,-2,5,1);
+// 	Tuple a2(-2,3,1,0);
+
+// 	Tuple a3 = a1 + a2;
+
+// 	ASSERT_FLOAT_EQ()
+// }

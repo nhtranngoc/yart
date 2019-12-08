@@ -26,5 +26,5 @@ Tuple Vector(float x, float y, float z) {
 }
 
 bool equal(float x, float y) {
-	return (abs(x-y) < EPSILON);
+	return (std::abs(x-y) < EPSILON);
 }
