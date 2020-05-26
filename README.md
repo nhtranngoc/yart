@@ -7,6 +7,13 @@ Inspired by ["The Ray Tracer Challenge"](http://www.raytracerchallenge.com/), a 
 As with [YACE](https://github.com/nhtranngoc/yace), I will continue to use CMake as a build system and Google Tests as a testing framework.
 
 # Build Instructions
+Before running CMake, it is necessary to run the following commands:
+```shell
+export CC=path/to/arm-none-eabi-gcc
+export CXX=path/to/arm-none-eabi-g++
+```
+This will set the path to the ARM cross compilers and set them to CMake cache. 
+
 ```shell
 cd ./build/
 cmake ..
