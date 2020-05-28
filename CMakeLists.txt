@@ -1,13 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 
-set(CMAKE_TRY_COMPILE_TARGET_TYPE "STATIC_LIBRARY")
-set(CMAKE_SYSTEM_NAME Generic)
-set(CMAKE_SYSTEM_PROCESSOR arm)
-set(CMAKE_CROSSCOMPILING TRUE)
-
-set(CMAKE_C_COMPILER arm-none-eabi-gcc)
-set(CMAKE_CXX_COMPILER arm-none-eabi-g++)
-set(OBJCOPY arm-none-eabi-objcopy)
+message(STATUS "Using toolchain file: ${CMAKE_TOOLCHAIN_FILE}")
 
 project(libopencm3_cmake)
 enable_language(C CXX)

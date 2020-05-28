@@ -21,5 +21,5 @@ Tuple Point(float x, float y, float z) {
 }
 
 bool equal(float x, float y) {
-    return (std::abs(x-y) < EPSILON);
+    return (std::abs(x -y) < EPSILON);
 }

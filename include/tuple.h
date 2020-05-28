@@ -2,9 +2,11 @@
 #define TUPLE_HPP
 
 #include <stdlib.h>
+#include <cmath>
+
 using namespace std;
 
-#define EPSILON 0.00001
+#define EPSILON 0.0001
 bool equal(float x, float y);
 
 class Tuple {
