@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 
-if(DEFINED $ENV{CPPUTEST_HOME})
+if(DEFINED ENV{CPPUTEST_HOME})
     message(STATUS "Using CppUTest home: $ENV{CPPUTEST_HOME}")
     set(CPPUTEST_INCLUDE_DIRS $ENV{CPPUTEST_HOME}/include)
     set(CPPUTEST_LIBRARIES $ENV{CPPUTEST_HOME}/lib)
