@@ -41,6 +41,24 @@ Tuple operator - (Tuple const &t) {
     );
 }
 
+Tuple operator * (Tuple const &t, float const s) {
+    return Tuple(
+        t.x * s,
+        t.y * s,
+        t.z * s,
+        t.w * s
+    );
+}
+
+Tuple operator / (Tuple const &t, float const s) {
+    return Tuple(
+        t.x / s,
+        t.y / s,
+        t.z / s,
+        t.w / s
+    );
+}
+
 bool Tuple::isPoint() {
     return equal(this->w, 1.0);
 }

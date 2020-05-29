@@ -20,6 +20,8 @@ class Tuple {
 	friend Tuple operator + (Tuple const &, Tuple const &);
 	friend Tuple operator - (Tuple const &, Tuple const &);
 	friend Tuple operator - (Tuple const &);
+	friend Tuple operator * (Tuple const &, float const);
+	friend Tuple operator / (Tuple const &, float const);
 };
 
 Tuple Point(float x, float y, float z);

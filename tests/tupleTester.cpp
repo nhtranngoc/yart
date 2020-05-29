@@ -89,3 +89,15 @@ TEST(TupleTest, negateATuple) {
 
     CHECK(-a == Tuple(-1,2,-3,4));
 }
+
+TEST(TupleTest, multiplyTupleByAScalar) {
+    Tuple a(1,-2,3,-4);
+
+    CHECK((a * 3.5) == Tuple(3.5,-7,10.5,-14));
+}
+
+TEST(TupleTest, divideTupleByAScalar) {
+    Tuple a(1,-2,3,-4);
+
+    CHECK((a / 2) == Tuple(0.5,-1,1.5,-2));
+}
