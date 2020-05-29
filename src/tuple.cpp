@@ -16,6 +16,11 @@ bool Tuple::isVector() {
 }
 
 Tuple Point(float x, float y, float z) {
+    Tuple tmp(x,y,z,1.0);
+    return tmp;
+}
+
+Tuple Vector(float x, float y, float z) {
     Tuple tmp(x,y,z,0.0);
     return tmp;
 }

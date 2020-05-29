@@ -4,6 +4,9 @@
 
 build/
 
+### VSCode specific
+.vscode/
+
 ### C ###
 # Prerequisites
 *.d
