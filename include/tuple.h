@@ -15,6 +15,11 @@ class Tuple {
 		Tuple(float x, float y, float z, float w);
 		bool isPoint();
 		bool isVector();
+
+	friend bool operator == (Tuple const &, Tuple const &);
+	friend Tuple operator + (Tuple const &, Tuple const &);
+	friend Tuple operator - (Tuple const &, Tuple const &);
+	friend Tuple operator - (Tuple const &);
 };
 
 Tuple Point(float x, float y, float z);

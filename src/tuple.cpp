@@ -7,6 +7,40 @@ Tuple::Tuple(float x, float y, float z, float w) {
     this->w = w;
 }
 
+bool operator == (Tuple const &t1, Tuple const &t2) {
+    return (
+        equal(t1.x, t2.x) && 
+        equal(t1.y, t2.y) &&
+        equal(t1.z, t2.z) &&
+        equal(t1.w, t2.w));
+}
+
+Tuple operator + (Tuple const &t1, Tuple const &t2) {
+    return Tuple(
+        t1.x + t2.x,
+        t1.y + t2.y,
+        t1.z + t2.z,
+        t1.w + t2.w);
+}
+
+Tuple operator - (Tuple const &t1, Tuple const &t2) {
+    return Tuple(
+        t1.x - t2.x,
+        t1.y - t2.y,
+        t1.z - t2.z,
+        t1.w - t2.w        
+    );
+}
+
+Tuple operator - (Tuple const &t) {
+    return Tuple(
+        -t.x,
+        -t.y,
+        -t.z,
+        -t.w
+    );
+}
+
 bool Tuple::isPoint() {
     return equal(this->w, 1.0);
 }
