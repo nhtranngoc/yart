@@ -20,4 +20,7 @@ link_directories(${CPPUTEST_LIBRARIES})
 add_executable(yart_test.bin ${USER_SOURCES})
 target_link_libraries(yart_test.bin ${APP_LIB_NAME} ${CPPUTEST_LDFLAGS})
 
-add_custom_target(TARGET yart_test.bin COMMAND ./tests/yart_test.bin POST_BUILD)
+add_custom_command(
+    TARGET yart_test.bin
+    POST_BUILD
+    COMMAND ./yart_test.bin)

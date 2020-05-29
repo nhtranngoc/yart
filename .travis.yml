@@ -57,6 +57,3 @@ script:
      - cd build
      - cmake .. 
      - make
-     - cd tests
-     - ./yart_test.bin
-
