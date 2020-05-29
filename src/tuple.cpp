@@ -67,6 +67,43 @@ bool Tuple::isVector() {
     return equal(this->w, 0.0);
 }
 
+float Tuple::magnitude() {
+    return (sqrt(
+        this->x * this->x +
+        this->y * this->y +
+        this->z * this->z +
+        this->w * this->w
+    ));
+}
+
+Tuple Tuple::normalize() {
+    float m = this->magnitude();
+
+    return Tuple(
+        this->x / m,
+        this->y / m,
+        this->z / m,
+        this->w / m
+    );
+}
+
+float Tuple::dot(Tuple const &t) {
+    return (
+        this->x * t.x +
+        this->y * t.y +
+        this->z * t.z +
+        this->w * t.w
+    );
+}
+
+Tuple Tuple::cross(Tuple const &t) {
+    return Vector(
+        this->y * t.z - this->z * t.y,
+        this->z * t.x - this->x * t.z,
+        this->x * t.y - this->y * t.x        
+    );
+}
+
 Tuple Point(float x, float y, float z) {
     Tuple tmp(x,y,z,1.0);
     return tmp;

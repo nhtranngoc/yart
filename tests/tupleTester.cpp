@@ -101,3 +101,38 @@ TEST(TupleTest, divideTupleByAScalar) {
 
     CHECK((a / 2) == Tuple(0.5,-1,1.5,-2));
 }
+
+TEST(TupleTest, magnitudeOfVector) {
+    Tuple v1 = Vector(1,0,0);
+    Tuple v2 = Vector(0,1,0);
+    Tuple v3 = Vector(0,0,1);
+
+    DOUBLES_EQUAL(v1.magnitude(), 1, EPSILON);
+    DOUBLES_EQUAL(v2.magnitude(), 1, EPSILON);
+    DOUBLES_EQUAL(v3.magnitude(), 1, EPSILON);
+}
+
+TEST(TupleTest, normalizeVector) {
+    Tuple v1 = Vector(4,0,0);
+    Tuple v2 = Vector(1,2,3);
+    Tuple v3 = v2.normalize();
+
+    CHECK(v1.normalize() == Vector(1,0,0));
+    CHECK(v2.normalize() == Vector(0.26726,0.53452,0.80178));
+    DOUBLES_EQUAL(v3.magnitude(), 1, EPSILON);
+}
+
+TEST(TupleTest, dotProductOfTwoTuples) {
+    Tuple a = Vector(1,2,3);
+    Tuple b = Vector(2,3,4);
+
+    DOUBLES_EQUAL(a.dot(b), 20, EPSILON);
+}
+
+TEST(TupleTest, crossProductOfTwoVectors) {
+    Tuple a = Vector(1,2,3);
+    Tuple b = Vector(2,3,4);
+
+    CHECK(a.cross(b) == Vector(-1,2,-1));
+    CHECK(b.cross(a) == Vector(1,-2,1));
+}
