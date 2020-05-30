@@ -266,11 +266,3 @@ void lcd_tft_isr(void)
 
 	LTDC_SRCR |= LTDC_SRCR_VBR;
 }
-
-void clear_canvas(uint32_t *canvas) {
-	memset(canvas, 0xffffffff, LCD_LAYER1_BYTES);
-}
-
-void write_pixel(uint32_t *canvas, uint16_t x, uint16_t y, uint32_t color) {
-
-}

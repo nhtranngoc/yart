@@ -5,6 +5,8 @@
 #include "lcd-dma.h"
 
 #include "tuple.h"
+#include "color.h"
+#include "canvas.h"
 
 layer1_pixel *const raytracer_canvas = (uint32_t *)SDRAM_BASE_ADDRESS;
 
@@ -29,6 +31,8 @@ int main(int argc, char **argv) {
 	printf("Initialized. Test\n");
 	
 	clear_canvas(raytracer_canvas);
+
+	write_pixel(raytracer_canvas, 50, 50, Color(1,0,0).toHex());
 
 	while (1) {
 		continue;

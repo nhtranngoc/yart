@@ -44,8 +44,6 @@ typedef uint32_t layer1_pixel;
 #define LCD_LAYER1_BYTES  (LCD_LAYER1_PIXELS * LCD_LAYER1_PIXEL_SIZE)
 
 extern void lcd_dma_init(layer1_pixel *canvas);
-void clear_canvas(layer1_pixel *canvas);
-void write_pixel(layer1_pixel *canvas, uint16_t x, uint16_t y, uint32_t color);
 
 #ifdef __cplusplus
 }
