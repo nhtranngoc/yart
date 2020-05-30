@@ -17,5 +17,5 @@ TEST(CanvasTest, WritePixel) {
     clear_canvas(test_canvas);
     write_pixel(test_canvas, 2, 3, Color(1,0,0).toHex());
 
-    LONGS_EQUAL(0xffff0000, test_canvas[(3*240+2)]);
+    LONGS_EQUAL(0xffff0000, test_canvas[(2*240+3)]);
 }
