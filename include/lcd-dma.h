@@ -8,6 +8,7 @@ extern "C" {
 #include <inttypes.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include <libopencm3/cm3/nvic.h>
 #include <libopencm3/stm32/rcc.h>
@@ -36,15 +37,15 @@ extern "C" {
 typedef uint32_t layer1_pixel;
 #define LCD_LAYER1_PIXFORMAT LTDC_LxPFCR_ARGB8888
 
-layer1_pixel *const lcd_layer1_frame_buffer = (uint32_t *)SDRAM_BASE_ADDRESS;
 #define LCD_LAYER1_PIXEL_SIZE (sizeof(layer1_pixel))
 #define LCD_LAYER1_WIDTH  LCD_WIDTH
 #define LCD_LAYER1_HEIGHT LCD_HEIGHT
 #define LCD_LAYER1_PIXELS (LCD_LAYER1_WIDTH * LCD_LAYER1_HEIGHT)
 #define LCD_LAYER1_BYTES  (LCD_LAYER1_PIXELS * LCD_LAYER1_PIXEL_SIZE)
 
-extern void lcd_dma_init(void);
-void clear(void);
+extern void lcd_dma_init(layer1_pixel *canvas);
+void clear_canvas(layer1_pixel *canvas);
+void write_pixel(layer1_pixel *canvas, uint16_t x, uint16_t y, uint32_t color);
 
 #ifdef __cplusplus
 }

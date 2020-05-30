@@ -6,6 +6,8 @@
 
 #include "tuple.h"
 
+layer1_pixel *const raytracer_canvas = (uint32_t *)SDRAM_BASE_ADDRESS;
+
 int main(int argc, char **argv) {
 	/* init timers. */
 	clock_setup();
@@ -19,14 +21,14 @@ int main(int argc, char **argv) {
 
 	printf("Preloading frame buffers\n");
 
-	clear();
-
 	printf("Initializing LCD\n");
 
-	lcd_dma_init();
+	lcd_dma_init(raytracer_canvas);
 	lcd_spi_init();
 
 	printf("Initialized. Test\n");
+	
+	clear_canvas(raytracer_canvas);
 
 	while (1) {
 		continue;

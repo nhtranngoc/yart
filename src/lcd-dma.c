@@ -49,7 +49,7 @@
  *     NRST    = NRST
  */
 
-void lcd_dma_init(void) {
+void lcd_dma_init(layer1_pixel *canvas) {
 	/* init GPIO clocks */
 	rcc_periph_clock_enable(RCC_GPIOA | RCC_GPIOB | RCC_GPIOC |
 				RCC_GPIOD | RCC_GPIOF | RCC_GPIOG);
@@ -176,7 +176,7 @@ void lcd_dma_init(void) {
 		LTDC_L1PFCR = LCD_LAYER1_PIXFORMAT;
 
 		/* The color frame buffer start address */
-		LTDC_L1CFBAR = (uint32_t)lcd_layer1_frame_buffer;
+		LTDC_L1CFBAR = (uint32_t)canvas;
 
 		/* The line length and pitch of the color frame buffer */
 		uint32_t pitch = LCD_LAYER1_WIDTH * LCD_LAYER1_PIXEL_SIZE;
@@ -267,13 +267,10 @@ void lcd_tft_isr(void)
 	LTDC_SRCR |= LTDC_SRCR_VBR;
 }
 
-// This clearly does not clear the screen. Just a bit of good ol' test code @TODO
-void clear(void) {
-	for(int i = 0; i < 76800; i++) {
-		if(i < (76800/2)) {
-			lcd_layer1_frame_buffer[i] = 0xffff0000;
-		} else {
-			lcd_layer1_frame_buffer[i] = 0xff0000ff;
-		}
-	}
+void clear_canvas(uint32_t *canvas) {
+	memset(canvas, 0xffffffff, LCD_LAYER1_BYTES);
+}
+
+void write_pixel(uint32_t *canvas, uint16_t x, uint16_t y, uint32_t color) {
+
 }
