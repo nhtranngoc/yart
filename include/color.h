@@ -2,6 +2,7 @@
 #define COLOR_H
 
 #include "tuple.h"
+#include <stdint.h>
 
 class Color : public Tuple {
     public:
