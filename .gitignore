@@ -3,6 +3,8 @@
 # Edit at https://www.gitignore.io/?templates=c,c++,cmake
 
 build/
+# Ignore travis for now since it does not like c++11
+.travis.yml
 
 ### VSCode specific
 .vscode/

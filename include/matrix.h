@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <initializer_list>
+#include "tuple.h"
 
 // To ensure static memory allocation, we are using std::initializer_list, instead of vectors.
 
@@ -13,11 +14,16 @@ class Matrix {
         float m_data[ROWS][COLS];
     public:
         Matrix(std::initializer_list<std::initializer_list<float> > data);
+        Matrix(void);
 
-    float operator()(const uint8_t &, const uint8_t &);
+    float operator() (uint8_t, uint8_t) const;
+    float& operator() (uint8_t, uint8_t); 
+
+
     bool operator== (const Matrix &);
     bool operator!= (const Matrix &);
-    // Matrix<ROWS,COLS> operator* (const Matrix &);
+    Matrix<ROWS,COLS> operator* (const Matrix &);
+    Tuple operator*(const Tuple &);
 };
 
 #endif //MATRIX_H_
