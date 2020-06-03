@@ -80,3 +80,13 @@ Tuple Matrix<ROWS, COLS>::operator * (const Tuple &t) {
         this->m_data[3][0] * t.x + this->m_data[3][1] * t.y + this->m_data[3][2] * t.z + this->m_data[3][3] * t.w
     );
 }
+
+template <uint8_t ROWS, uint8_t COLS>
+Matrix<ROWS, COLS> Matrix<ROWS, COLS>::identity() {
+    return Matrix<4,4> ({
+        {1,0,0,0},
+        {0,1,0,0},
+        {0,0,1,0},
+        {0,0,0,1}
+    });
+}

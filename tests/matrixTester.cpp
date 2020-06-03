@@ -108,3 +108,21 @@ TEST(MatrixTest, MultiplyAMatrixWithATuple) {
 
     CHECK((A * b) == c);
 }
+
+TEST(MatrixTest, MultiplyAMatrixByIdentity) {
+    Matrix<4,4> A({
+        {0,1,2,4},
+        {1,2,4,8},
+        {2,4,8,16},
+        {4,8,16,32}
+    });
+
+    CHECK((A * A.identity()) == A);
+}
+
+TEST(MatrixTest, MultiplyIdentityMatrixByTuple) {
+    Matrix<4,4> A;
+    Tuple a(1,2,3,4);
+
+    CHECK((A.identity() * a) == a);
+}

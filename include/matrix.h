@@ -19,11 +19,12 @@ class Matrix {
     float operator() (uint8_t, uint8_t) const;
     float& operator() (uint8_t, uint8_t); 
 
-
     bool operator== (const Matrix &);
     bool operator!= (const Matrix &);
     Matrix<ROWS,COLS> operator* (const Matrix &);
     Tuple operator*(const Tuple &);
+
+    Matrix<ROWS, COLS> identity();
 };
 
 #endif //MATRIX_H_
