@@ -32,3 +32,39 @@ TEST(MatrixTest, Represent2x2Matrix) {
     DOUBLES_EQUAL(M(1,0), 1, EPSILON);
     DOUBLES_EQUAL(M(1,1), -2, EPSILON);
 }
+
+TEST(MatrixTest, MatrixEquality) {
+    Matrix<4,4> A({
+        {1,2,3,4},
+        {5,6,7,8},
+        {9,8,7,6},
+        {5,4,3,2}
+    });
+
+    Matrix<4,4> B({
+        {1,2,3,4},
+        {5,6,7,8},
+        {9,8,7,6},
+        {5,4,3,2}
+    });
+
+    CHECK(A == B);
+}
+
+TEST(MatrixTest, MatrixInequality) {
+    Matrix<4,4> A({
+        {1,2,3,4},
+        {5,6,7,8},
+        {9,8,7,6},
+        {5,4,3,2}
+    });
+
+    Matrix<4,4> B({
+        {2,3,4,5},
+        {6,7,8,9},
+        {8,7,6,5},
+        {4,3,2,1}
+    });
+
+    CHECK(A != B);
+}

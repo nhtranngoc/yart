@@ -13,7 +13,9 @@ class Matrix {
     public:
         Matrix(std::initializer_list<std::initializer_list<float> > data);
 
-    float operator ()(const uint8_t &, const uint8_t &);
+    float operator()(const uint8_t &, const uint8_t &);
+    bool operator== (const Matrix &);
+    bool operator!= (const Matrix &);
 };
 
 #endif //MATRIX_H_
