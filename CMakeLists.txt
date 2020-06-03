@@ -15,4 +15,4 @@ set(COMMON_C_FLAGS "-lc -lgcc -Os -g \
 -Wall -Werror -Wredundant-decls -Wstrict-prototypes \
 -fno-common -ffunction-sections -fdata-sections -MD -Wundef")
 
-set(COMMON_CXX_FLAGS "-lc -lgcc -Os -Wall -std=c++14")
+set(COMMON_CXX_FLAGS "-lc -lgcc -Os -Wall -std=c++11")
