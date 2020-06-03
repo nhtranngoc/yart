@@ -39,3 +39,13 @@ template <uint8_t ROWS, uint8_t COLS>
 bool Matrix<ROWS, COLS>::operator != (const Matrix<ROWS,COLS> &m1) {
     return !this->operator==(m1);
 }
+
+// template <uint8_t ROWS, uint8_t COLS>
+// Matrix<ROWS, COLS> Matrix<ROWS, COLS>::operator * (const Matrix<ROWS, COLS> &m1) {
+//     Matrix<ROWS, COLS> retVal;
+//     for(int i = 0; i < ROWS; i++) {
+//         for(int j = 0; j < COLS, j++) {
+//             retVal(i,i) = this->m_data[]
+//         }
+//     }    
+// }

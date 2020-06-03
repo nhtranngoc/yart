@@ -3,6 +3,7 @@
 
 #include <stdlib.h>
 #include <stdint.h>
+#include <initializer_list>
 
 // To ensure static memory allocation, we are using std::initializer_list, instead of vectors.
 
@@ -16,6 +17,7 @@ class Matrix {
     float operator()(const uint8_t &, const uint8_t &);
     bool operator== (const Matrix &);
     bool operator!= (const Matrix &);
+    // Matrix<ROWS,COLS> operator* (const Matrix &);
 };
 
 #endif //MATRIX_H_
