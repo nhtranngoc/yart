@@ -13,7 +13,7 @@ else()
 endif()
 
 set(CMAKE_C_FLAGS "${COMMON_C_FLAGS}")
-set(CMAKE_CXX_FLAGS "${COMMON_CXX_FLAGS}")
+set(CMAKE_CXX_FLAGS "${COMMON_CXX_FLAGS}" CACHE STRING "compiler flags")
 
 file(GLOB USER_SOURCES ${CMAKE_SOURCE_DIR}/tests/*.c ${CMAKE_SOURCE_DIR}/tests/*.cpp)
 

@@ -6,9 +6,6 @@ env:
     - LINUX_DIST=trusty
     - DEPS_DIR=${TRAVIS_BUILD_DIR}/lib
     - CXX_FLAGS="-Wall -pedantic -Werror -Wno-variadic-macros -Wno-long-long -Wno-shadow -std=c++11"
-    # Misc
-    - RUN_TESTS=true
-    - COVERAGE=false
 
 matrix:
   include:
@@ -21,9 +18,6 @@ matrix:
          packages: &precise_latest_boost_packages
            - gcc-4.8
            - g++-4.8
-           #- gcov-4.9
-           - clang-3.7
-           - valgrind
          sources: &precise_latest_boost_sources
            - ubuntu-toolchain-r-test
            - llvm-toolchain-precise-3.7
@@ -36,11 +30,8 @@ before_install:
     - export CPPUTEST_HOME=${HOME}/cpputest
 
 install:
-    - if [ "$CXX" = "clang++" ] && [ "$TRAVIS_OS_NAME" = "linux" ]; then export CXX="clang++-3.7" CC="clang-3.7"; fi
     - echo ${PATH}
     - echo ${CXX}
-    - ${CXX} --version
-    - ${CXX} -v
     # Download and install recent cmake
     - |
       if [[ ${TRAVIS_OS_NAME} == "linux" ]]; then
