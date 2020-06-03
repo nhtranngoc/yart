@@ -5,6 +5,7 @@
 #include <stdint.h>
 #include <initializer_list>
 #include "tuple.h"
+#include "iostream"
 
 // To ensure static memory allocation, we are using std::initializer_list, instead of vectors.
 
@@ -24,8 +25,17 @@ class Matrix {
     Matrix<ROWS,COLS> operator* (const Matrix &);
     Tuple operator*(const Tuple &);
 
-    Matrix<ROWS, COLS> identity();
-    Matrix<ROWS, COLS> transpose();
+    Matrix<ROWS, COLS> Identity();
+    Matrix<ROWS, COLS> Transpose();
+    float Determinant();
+    Matrix<ROWS-1, COLS-1> Submatrix(const uint8_t, const uint8_t);
+    float Minor(uint8_t , uint8_t);
+    float Cofactor(uint8_t, uint8_t);
+    bool IsInvertible();
+
+    Matrix<ROWS, COLS> Inverse();
+
+    void print();
 };
 
 #endif //MATRIX_H_
