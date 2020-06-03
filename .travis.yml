@@ -5,7 +5,7 @@ env:
     # Ubuntu
     - LINUX_DIST=trusty
     - DEPS_DIR=${TRAVIS_BUILD_DIR}/lib
-    # - CXX_FLAGS="-Wall -pedantic -Werror -Wno-variadic-macros -Wno-long-long -Wno-shadow -std=c++11"
+    - CXX_FLAGS="-Wall -pedantic -Werror -Wno-variadic-macros -Wno-long-long -Wno-shadow -std=c++11"
     # Misc
     - RUN_TESTS=true
     - COVERAGE=false
@@ -31,7 +31,7 @@ matrix:
 before_install:
     # Combine global build options with OS/compiler-dependent options
     - export CMAKE_OPTIONS=${CMAKE_OPTIONS}" "${ENV_CMAKE_OPTIONS}
-    # - export CXX_FLAGS=${CXX_FLAGS}" "${ENV_CXX_FLAGS}
+    - export CXX_FLAGS=${CXX_FLAGS}" "${ENV_CXX_FLAGS}
     - ./install_cpputest.sh
     - export CPPUTEST_HOME=${HOME}/cpputest
 

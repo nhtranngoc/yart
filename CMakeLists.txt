@@ -16,3 +16,6 @@ set(COMMON_C_FLAGS "-lc -lgcc -Os -g \
 -fno-common -ffunction-sections -fdata-sections -MD -Wundef")
 
 set(COMMON_CXX_FLAGS "-lc -lgcc -Os -Wall -std=c++11")
+
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
