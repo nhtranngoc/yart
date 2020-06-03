@@ -25,6 +25,7 @@ class Matrix {
     Tuple operator*(const Tuple &);
 
     Matrix<ROWS, COLS> identity();
+    Matrix<ROWS, COLS> transpose();
 };
 
 #endif //MATRIX_H_

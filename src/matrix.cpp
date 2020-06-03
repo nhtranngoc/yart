@@ -90,3 +90,16 @@ Matrix<ROWS, COLS> Matrix<ROWS, COLS>::identity() {
         {0,0,0,1}
     });
 }
+
+template <uint8_t ROWS, uint8_t COLS>
+Matrix<ROWS, COLS> Matrix<ROWS, COLS>::transpose() {
+    Matrix<ROWS, COLS> retVal;
+    
+    for(int i = 0; i < ROWS; i++) {
+        for(int j = 0; j < COLS; j++) {
+            retVal(i,j) = this->m_data[j][i];
+        }
+    }
+
+    return retVal;
+}

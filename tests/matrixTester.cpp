@@ -126,3 +126,28 @@ TEST(MatrixTest, MultiplyIdentityMatrixByTuple) {
 
     CHECK((A.identity() * a) == a);
 }
+
+TEST(MatrixTest, TransposeAMatrix) {
+    Matrix<4,4> A({
+        {0,9,3,0},
+        {9,8,0,8},
+        {1,8,5,3},
+        {0,0,5,8}
+    });
+
+    Matrix<4,4> B({
+        {0,9,1,0},
+        {9,8,8,0},
+        {3,0,5,5},
+        {0,8,3,8}
+    });
+
+    CHECK(A.transpose() == B);
+}
+
+TEST(MatrixTest, TransposeIdentity) {
+    Matrix<4,4> A;
+    Matrix<4,4> Identity = A.identity();
+
+    CHECK(Identity.transpose() == Identity);
+}
