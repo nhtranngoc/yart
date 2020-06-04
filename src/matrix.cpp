@@ -135,15 +135,15 @@ Matrix<ROWS-1, COLS-1> Matrix<ROWS, COLS>::Submatrix(const uint8_t row, const ui
     return retVal;
 }
 
-template<uint8_t ROWS, uint8_t COLS>
-void Matrix<ROWS, COLS>::print() {
-    for(int i = 0; i < ROWS; i++) {
-        std::cout << "\n";
-        for(int j = 0; j < COLS; j++) {
-            std::cout << this->m_data[i][j] << " |";
-        }
-    }    
-}
+// template<uint8_t ROWS, uint8_t COLS>
+// void Matrix<ROWS, COLS>::print() {
+//     for(int i = 0; i < ROWS; i++) {
+//         std::cout << "\n";
+//         for(int j = 0; j < COLS; j++) {
+//             std::cout << this->m_data[i][j] << " |";
+//         }
+//     }    
+// }
 
 template<uint8_t ROWS, uint8_t COLS>
 float Matrix<ROWS, COLS>::Minor(uint8_t row, uint8_t col) {

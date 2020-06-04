@@ -5,7 +5,7 @@
 #include <stdint.h>
 #include <initializer_list>
 #include "tuple.h"
-#include "iostream"
+// #include "iostream"
 
 // To ensure static memory allocation, we are using std::initializer_list, instead of vectors.
 
@@ -35,7 +35,7 @@ class Matrix {
 
     Matrix<ROWS, COLS> Inverse();
 
-    void print();
+    // void print();
 };
 
 #endif //MATRIX_H_
