@@ -178,3 +178,8 @@ Matrix<ROWS, COLS> Matrix<ROWS, COLS>::Inverse() {
 
     return retVal;
 }
+
+// Explicitly instantiate relevant templates
+template class Matrix<4,4>;
+// template class Matrix<3,3>;
+// template class Matrix<2,2>;

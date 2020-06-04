@@ -5,8 +5,10 @@
 #include "lcd-dma.h"
 
 #include "tuple.h"
+#include "matrix.h"
 #include "color.h"
 #include "canvas.h"
+#include "transformation.h"
 
 layer1_pixel *const raytracer_canvas = (uint32_t *)SDRAM_BASE_ADDRESS;
 
@@ -52,18 +54,26 @@ int main(int argc, char **argv) {
 	clear_canvas(raytracer_canvas);
 	printf("Initialized.\n");
 	
-	printf("Initializing environment and projectile.\n");
-	Projectile p(Point(0,1,0), Vector(3,3,0));
-	Environment e(Vector(0,-0.1,0), Vector(-0.01,0,0));
-	printf("Initialized.\n");
+	// Draw origin point
+	Tuple origin = Point(LCD_HEIGHT/2,0,LCD_WIDTH/2);
+	write_pixel(raytracer_canvas, (uint32_t) origin.x, (uint32_t) origin.z, Color(0,0,1).toHex());
+	// Initial point on the "circle"
+	Tuple twelve = Point(0,0,1);
+	float radius = (float) LCD_WIDTH * 3 / 8; // 90 pixel
 
-	printf("Drawing...\n");
-	while(p.pos.y > 0) {
-		write_pixel(raytracer_canvas, (int) p.pos.x, (int) p.pos.y, Color(1,0,0).toHex());
-		tick(e, p);
-		milli_sleep(50);
+	const int points = 12;
+
+	for(int i = 0; i < points; i++) {
+		Matrix<4,4> r = RotationY(i * pi*2/points);
+		// Hours
+		Tuple hour = r * twelve;
+		// Multiply by radius and add offset
+		hour.x = ((float)hour.x * radius) + origin.x;
+		hour.z = ((float)hour.z * radius) + origin.z;
+
+		write_pixel(raytracer_canvas, (uint32_t) hour.x, (uint32_t) hour.z, Color(1,0,0).toHex());
 	}
-	printf("Finished drawing!\n");
+
 
 	while (1) {
 		continue;
