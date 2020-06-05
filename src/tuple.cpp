@@ -7,6 +7,13 @@ Tuple::Tuple(float x, float y, float z, float w) {
     this->w = w;
 }
 
+Tuple::Tuple() {
+    this->x = 0;
+    this->y = 0;
+    this->z = 0;
+    this->w = 0;
+}
+
 bool operator == (Tuple const &t1, Tuple const &t2) {
     return (
         equal(t1.x, t2.x) && 
@@ -59,15 +66,15 @@ Tuple operator / (Tuple const &t, float const s) {
     );
 }
 
-bool Tuple::isPoint() {
+bool Tuple::IsPoint() {
     return equal(this->w, 1.0);
 }
 
-bool Tuple::isVector() {
+bool Tuple::IsVector() {
     return equal(this->w, 0.0);
 }
 
-float Tuple::magnitude() {
+float Tuple::Magnitude() {
     return (sqrt(
         this->x * this->x +
         this->y * this->y +
@@ -76,8 +83,8 @@ float Tuple::magnitude() {
     ));
 }
 
-Tuple Tuple::normalize() {
-    float m = this->magnitude();
+Tuple Tuple::Normalize() {
+    float m = this->Magnitude();
 
     return Tuple(
         this->x / m,
@@ -87,7 +94,7 @@ Tuple Tuple::normalize() {
     );
 }
 
-float Tuple::dot(Tuple const &t) {
+float Tuple::Dot(Tuple const &t) {
     return (
         this->x * t.x +
         this->y * t.y +
@@ -96,7 +103,7 @@ float Tuple::dot(Tuple const &t) {
     );
 }
 
-Tuple Tuple::cross(Tuple const &t) {
+Tuple Tuple::Cross(Tuple const &t) {
     return Vector(
         this->y * t.z - this->z * t.y,
         this->z * t.x - this->x * t.z,

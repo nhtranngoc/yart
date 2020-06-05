@@ -21,12 +21,12 @@ TEST(TupleTest, isAPoint) {
     DOUBLES_EQUAL(4.3, tp.x, EPSILON);
     DOUBLES_EQUAL(-4.2, tp.y, EPSILON);
     DOUBLES_EQUAL(3.1, tp.z, EPSILON);
-    CHECK(tp.isPoint());
+    CHECK(tp.IsPoint());
 }
 
 TEST(TupleTest, isAVector) {
     Tuple tp(4.3, -4.2, 3.1, 0.0);
-    CHECK(tp.isVector());
+    CHECK(tp.IsVector());
 }
 
 TEST(TupleTest, createAPoint) {
@@ -35,8 +35,8 @@ TEST(TupleTest, createAPoint) {
     DOUBLES_EQUAL(4, tp.x, EPSILON);
     DOUBLES_EQUAL(-4, tp.y, EPSILON);
     DOUBLES_EQUAL(3, tp.z, EPSILON);
-    CHECK(tp.isPoint());
-    CHECK(!tp.isVector());
+    CHECK(tp.IsPoint());
+    CHECK(!tp.IsVector());
 }
 
 TEST(TupleTest, createAVector) {
@@ -45,8 +45,8 @@ TEST(TupleTest, createAVector) {
     DOUBLES_EQUAL(4, tp.x, EPSILON);
     DOUBLES_EQUAL(-4, tp.y, EPSILON);
     DOUBLES_EQUAL(3, tp.z, EPSILON);
-    CHECK(!tp.isPoint());
-    CHECK(tp.isVector());
+    CHECK(!tp.IsPoint());
+    CHECK(tp.IsVector());
 }
 
 TEST(TupleTest, compareTwoTuples) {
@@ -102,37 +102,37 @@ TEST(TupleTest, divideTupleByAScalar) {
     CHECK((a / 2) == Tuple(0.5,-1,1.5,-2));
 }
 
-TEST(TupleTest, magnitudeOfVector) {
+TEST(TupleTest, MagnitudeOfVector) {
     Tuple v1 = Vector(1,0,0);
     Tuple v2 = Vector(0,1,0);
     Tuple v3 = Vector(0,0,1);
 
-    DOUBLES_EQUAL(v1.magnitude(), 1, EPSILON);
-    DOUBLES_EQUAL(v2.magnitude(), 1, EPSILON);
-    DOUBLES_EQUAL(v3.magnitude(), 1, EPSILON);
+    DOUBLES_EQUAL(v1.Magnitude(), 1, EPSILON);
+    DOUBLES_EQUAL(v2.Magnitude(), 1, EPSILON);
+    DOUBLES_EQUAL(v3.Magnitude(), 1, EPSILON);
 }
 
-TEST(TupleTest, normalizeVector) {
+TEST(TupleTest, NormalizeVector) {
     Tuple v1 = Vector(4,0,0);
     Tuple v2 = Vector(1,2,3);
-    Tuple v3 = v2.normalize();
+    Tuple v3 = v2.Normalize();
 
-    CHECK(v1.normalize() == Vector(1,0,0));
-    CHECK(v2.normalize() == Vector(0.26726,0.53452,0.80178));
-    DOUBLES_EQUAL(v3.magnitude(), 1, EPSILON);
+    CHECK(v1.Normalize() == Vector(1,0,0));
+    CHECK(v2.Normalize() == Vector(0.26726,0.53452,0.80178));
+    DOUBLES_EQUAL(v3.Magnitude(), 1, EPSILON);
 }
 
 TEST(TupleTest, dotProductOfTwoTuples) {
     Tuple a = Vector(1,2,3);
     Tuple b = Vector(2,3,4);
 
-    DOUBLES_EQUAL(a.dot(b), 20, EPSILON);
+    DOUBLES_EQUAL(a.Dot(b), 20, EPSILON);
 }
 
 TEST(TupleTest, crossProductOfTwoVectors) {
     Tuple a = Vector(1,2,3);
     Tuple b = Vector(2,3,4);
 
-    CHECK(a.cross(b) == Vector(-1,2,-1));
-    CHECK(b.cross(a) == Vector(1,-2,1));
+    CHECK(a.Cross(b) == Vector(-1,2,-1));
+    CHECK(b.Cross(a) == Vector(1,-2,1));
 }
