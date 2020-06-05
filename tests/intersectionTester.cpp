@@ -24,3 +24,50 @@ TEST(IntersectionTest, AggregatingIntersections) {
     DOUBLES_EQUAL(xs[0].t, 1, EPSILON);
     DOUBLES_EQUAL(xs[1].t, 2, EPSILON);
 }
+
+TEST(IntersectionTest, HitAllIntersectionsHavePositiveT) {
+    auto s = std::make_shared<Sphere>();
+    auto i1 = Intersection(1,s);
+    auto i2 = Intersection(2, s);
+    auto xs = Intersections(i2, i1);
+
+    auto i = Hit(xs);
+
+    CHECK(i == i1);
+}
+
+TEST(IntersectionTest, HitSomeIntersectionsHaveNegativeT) {
+    auto s = std::make_shared<Sphere>();
+    auto i1 = Intersection(-1, s);
+    auto i2 = Intersection(1, s);
+    auto xs = Intersections(i2, i1);
+
+    auto i = Hit(xs);
+
+    CHECK(i == i2);
+}
+
+TEST(IntersectionTest, HitAllIntersectionsHaveNegativeT) {
+    auto s = std::make_shared<Sphere>();
+    auto i1 = Intersection(-2, s);
+    auto i2 = Intersection(-1, s);
+    auto xs = Intersections(i2, i1);
+
+    auto i = Hit(xs);
+
+    CHECK(i.t == 0);
+    CHECK(i.object == nullptr);
+}
+
+TEST(IntersectionTest, HitIsAlwaysLowestNonnegativeIntersection) {
+    auto s = std::make_shared<Sphere>();
+    auto i1 = Intersection(5, s);
+    auto i2 = Intersection(7, s);
+    auto i3 = Intersection(-3, s);
+    auto i4 = Intersection(2, s);
+    auto xs = Intersections(i1, i2, i3, i4);
+
+    auto i = Hit(xs);
+
+    CHECK(i == i4);
+}
