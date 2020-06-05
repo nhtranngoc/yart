@@ -1,6 +1,7 @@
 #include <CppUTest/TestHarness.h>
 #include "ray.cpp"
 #include "sphere.cpp"
+// #include "transformation.cpp"
 
 #define EPSILON 0.0001
 
@@ -89,4 +90,41 @@ TEST(RayTest, IntersectSetsTheObjectOnTheIntersection) {
     LONGS_EQUAL(2, xs.size());
     CHECK(xs[0].object == s);
     CHECK(xs[1].object == s);
+}
+
+TEST(RayTest, TranslatingARay) {
+    auto r = Ray(Point(1,2,3), Vector(0,1,0));
+    auto m = Translation(3,4,5);
+
+    auto r2 = r.Transform(m);
+
+    CHECK(r2.origin == Point(4,6,8));
+    CHECK(r2.direction == Vector(0,1,0));
+
+}
+
+TEST(RayTest, ScalingARay) {
+    auto r = Ray(Point(1,2,3), Vector(0,1,0));
+    auto m = Scaling(2,3,4);
+
+    auto r2 = r.Transform(m);
+
+    CHECK(r2.origin == Point(2,6,12));
+    CHECK(r2.direction == Vector(0,3,0));
+}
+
+TEST(RayTest, ASpheresDefaultTransformation) {
+    auto s = std::make_shared<Sphere>();
+    auto identity = Matrix<4,4>::Identity();
+    CHECK(s->transform == identity);
+}
+
+TEST(RayTest, ChangingASpheresDefaultTransformation) {
+    auto s = std::make_shared<Sphere>();
+
+    Matrix<4,4> t = Translation(2,3,4);
+
+    s->SetTransform(t);
+
+    CHECK(s->transform == t);
 }

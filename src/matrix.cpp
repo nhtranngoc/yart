@@ -172,7 +172,7 @@ Matrix<ROWS, COLS> Matrix<ROWS, COLS>::Inverse() {
 
     for(int i = 0; i < ROWS; i++) {
         for(int j = 0; j < COLS; j++) {
-            retVal(j,i) = this->Cofactor(i,j) / det;
+            retVal(i,j) = (float) this->Cofactor(j,i) / det;
         }
     }
 

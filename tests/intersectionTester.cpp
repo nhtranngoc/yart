@@ -71,3 +71,25 @@ TEST(IntersectionTest, HitIsAlwaysLowestNonnegativeIntersection) {
 
     CHECK(i == i4);
 }
+
+TEST(IntersectionTest, IntersectingAScaledSphereWithARay) {
+    auto r = Ray(Point(0,0,-5), Vector(0,0,1));
+    auto s = std::make_shared<Sphere>();
+
+    s->SetTransform(Scaling(2,2,2));
+    auto xs = s->Intersect(r);
+
+    LONGS_EQUAL(2, xs.size());
+    DOUBLES_EQUAL(3, xs[0].t, EPSILON);
+    DOUBLES_EQUAL(7, xs[1].t, EPSILON);
+}
+
+TEST(IntersectionTest, IntersectingATranslatedSphereWithARay) {
+    auto r = Ray(Point(0,0,-5), Vector(0,0,1));
+    auto s = std::make_shared<Sphere>();
+
+    s->SetTransform(Translation(5,0,0));
+    auto xs = s->Intersect(r);
+
+    LONGS_EQUAL(0, xs.size());
+}

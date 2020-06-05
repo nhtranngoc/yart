@@ -12,3 +12,10 @@ Tuple Ray::Position(float const &t) {
         this->origin.z + this->direction.z * t
     );
 }
+
+Ray Ray::Transform(Matrix<4,4> &m) {
+    return Ray(
+        m * this->origin,
+        m * this->direction
+    );
+}
