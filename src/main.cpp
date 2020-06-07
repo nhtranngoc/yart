@@ -11,6 +11,8 @@
 #include "sphere.h"
 #include "intersection.h"
 #include "transformation.h"
+#include "material.h"
+#include "pointlight.h"
 
 #define CANVAS_ORIGINX (LCD_HEIGHT/2)
 #define CANVAS_ORIGINY (LCD_WIDTH/2)
@@ -66,7 +68,6 @@ int main(int argc, char **argv) {
 	Tuple ray_origin = Point(0,0,-5);
 	// write_pixel(raytracer_canvas, ray_origin.x, ray_origin.z, Color(0,1,0).toHex());
 
-
 	float wall_z = 10;
 	float wall_size = 7;
 
@@ -74,9 +75,14 @@ int main(int argc, char **argv) {
 	float pixel_size = wall_size / canvas_pixels;
 	float half = wall_size / 2;
 
-	auto color = Color(1,0,0);
 	auto shape = std::make_shared<Sphere>();
-	shape->SetTransform(Shearing(1,0,0,0,0,0) * Scaling(0.5,1,1));
+	(shape->material).color = Color(1, 0.2, 1);
+	// shape->SetTransform(Shearing(1,0,0,0,0,0) * Scaling(0.5,1,1));
+
+	// Light source
+	auto light_position = Point(-10, 10, -10);
+	auto light_color = Color::White();
+	auto light = PointLight(light_position, light_color);
 
 	for(int y = 0; y < canvas_pixels; y++) {
 		float world_y = half - pixel_size * y;
@@ -88,13 +94,16 @@ int main(int argc, char **argv) {
 			auto r = Ray(ray_origin, (position - ray_origin).Normalize());
 			auto xs = shape->Intersect(r);
 
-			if(!equal(Hit(xs).t, 0)) {
-				// printf("Hit! At x: %d, y: %d\n", x, y);
+			// If there's a hit
+			auto hit = Hit(xs);
+			if(!equal(hit.t, 0)) {
+				auto point = r.Position(hit.t);
+				auto normal = (hit.object)->NormalAt(point);
+				auto eye = -r.direction;
+
+				auto color = Lighting((hit.object)->material, light, point, eye, normal);
 				write_pixel(raytracer_canvas, x, y, color.toHex());
 			}
-			//  else {
-			// 	printf("Missed!\n");
-			// }
 		}
 	}
 
