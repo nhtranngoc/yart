@@ -22,6 +22,7 @@ class Sphere : public enable_shared_from_this<Sphere> {
     std::vector<Intersection> Intersect(Ray);
     void SetTransform(Matrix<4,4> const &);
     Tuple NormalAt(Tuple const &);
+    bool operator== (Sphere const &);
 };
 
 #endif // SPHERE_H_

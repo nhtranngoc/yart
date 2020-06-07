@@ -12,6 +12,8 @@ class PointLight {
     PointLight(Tuple position_, Color intensity_) : 
         position(position_), 
         intensity(intensity_) {}
+
+    bool operator== (PointLight const &);
 };
 
 Color Lighting(Material const&, PointLight const&, Tuple const&, Tuple const&, Tuple const&);

@@ -40,3 +40,10 @@ Tuple Sphere::NormalAt(Tuple const &p) {
 
     return world_n.Normalize();
 }
+
+bool Sphere::operator== (Sphere const &other) {
+    return (
+        this->material == other.material &&
+        this->transform == other.transform
+    );
+}

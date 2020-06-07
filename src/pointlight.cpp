@@ -35,3 +35,10 @@ Color Lighting(Material const& material, PointLight const& light, Tuple const& p
 
     return ambient + diffuse + specular;
 }
+
+bool PointLight::operator== (PointLight const &other) {
+    return (
+        this->intensity == other.intensity &&
+        this->position == other.position
+    );
+}

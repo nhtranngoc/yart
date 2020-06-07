@@ -8,6 +8,7 @@
 #include "ray.cpp"
 #include "sphere.cpp"
 #include "transformation.cpp"
+#include "world.cpp"
 
 #define EPSILON 0.0001
 
