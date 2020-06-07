@@ -1,8 +1,6 @@
 #include <CppUTest/TestHarness.h>
 #include "intersection.h"
 
-#define EPSILON 0.0001
-
 TEST_GROUP(IntersectionTest){};
 
 TEST(IntersectionTest, AnIntersectionEncapsulateTAndObject) {

@@ -1,9 +1,5 @@
 #include "sphere.h"
 
-Sphere::Sphere() {
-    this->transform = Matrix<4,4>::Identity();
-}
-
 std::vector<Intersection> Sphere::Intersect(Ray r) {
     auto rayTransform = (this->transform).Inverse();
     auto r2 = r.Transform(rayTransform);

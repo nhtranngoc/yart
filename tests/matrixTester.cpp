@@ -1,8 +1,6 @@
 #include <CppUTest/TestHarness.h>
 #include "matrix.h"
 
-#define EPSILON 0.0001
-
 TEST_GROUP(MatrixTest){};
 
 TEST(MatrixTest, Constructing4x4Matrix) {

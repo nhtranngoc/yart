@@ -3,7 +3,8 @@
 
 #include "ray.h"
 #include "tuple.h"
-#include "Intersection.h"
+#include "intersection.h"
+#include "material.h"
 #include <vector>
 #include <memory>
 
@@ -11,8 +12,13 @@ class Intersection;
 
 class Sphere : public enable_shared_from_this<Sphere> {
     public:
-    Sphere();
     Matrix<4,4> transform;
+    Material material;
+
+    Sphere() :
+        transform(Matrix<4,4>::Identity()),
+        material(Material()) {}
+
     std::vector<Intersection> Intersect(Ray);
     void SetTransform(Matrix<4,4> const &);
     Tuple NormalAt(Tuple const &);

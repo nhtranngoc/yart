@@ -1,7 +1,6 @@
 #include <CppUTest/TestHarness.h>
 #include "sphere.h"
-
-#define EPSILON 0.0001
+#include "material.h"
 
 TEST_GROUP(SphereTest) {};
 
@@ -76,4 +75,22 @@ TEST(SphereTest, ComputeNormalOnATransformedSphere) {
         (float) -sqrt(2) / 2));
 
     CHECK(n == Vector(0, 0.97014, -0.24254));
+}
+
+TEST(SphereTest, ASphereHasADefaultMaterial) {
+    auto s = std::make_shared<Sphere>();
+
+    auto m = s->material;
+
+    CHECK(m == Material());
+}
+
+TEST(SphereTest, ASphereMayBeAssignedAMaterial) {
+    auto s = std::make_shared<Sphere>();
+    auto m = Material();
+    m.ambient = 1;
+
+    s->material = m;
+    
+    CHECK(s->material == m);
 }

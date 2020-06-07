@@ -25,7 +25,7 @@ class Matrix {
     Matrix<ROWS,COLS> operator* (const Matrix &);
     Tuple operator*(const Tuple &);
 
-    static Matrix<ROWS, COLS> Identity();
+    static Matrix<4, 4> Identity();
     Matrix<ROWS, COLS> Transpose();
     float Determinant();
     Matrix<ROWS-1, COLS-1> Submatrix(const uint8_t, const uint8_t);

@@ -2,8 +2,6 @@
 #include "ray.h"
 #include "sphere.h"
 
-#define EPSILON 0.0001
-
 TEST_GROUP(RayTest){};
 
 TEST(RayTest, CreateAndQueryARay) {
