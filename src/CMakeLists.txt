@@ -23,11 +23,14 @@ ${COMMON_CXX_FLAGS} \
 ${ARCH_FLAGS}")
 
 set(CMAKE_EXE_LINKER_FLAGS " \
+${ARCH_FLAGS} \
 -T${LDSCRIPT} \
---static \
 -nostartfiles \
+--specs=nano.specs \
 --specs=nosys.specs \
--Wl,--start-group -lc -lgcc -Wl,--end-group")
+-Wl,--start-group -lc -lgcc -Wl,--end-group \
+-Wl,--no-wchar-size-warning \
+-Wl,--gc-sections")
 
 add_custom_target(libopencm3 make WORKING_DIRECTORY ${OPENCM3_DIR})
 

@@ -8,7 +8,12 @@
 #include "matrix.h"
 #include "color.h"
 #include "canvas.h"
+#include "sphere.h"
+#include "intersection.h"
 #include "transformation.h"
+
+#define CANVAS_ORIGINX (LCD_HEIGHT/2)
+#define CANVAS_ORIGINY (LCD_WIDTH/2)
 
 layer1_pixel *const raytracer_canvas = (uint32_t *)SDRAM_BASE_ADDRESS;
 
@@ -55,25 +60,43 @@ int main(int argc, char **argv) {
 	printf("Initialized.\n");
 	
 	// Draw origin point
-	Tuple origin = Point(LCD_HEIGHT/2,0,LCD_WIDTH/2);
-	write_pixel(raytracer_canvas, (uint32_t) origin.x, (uint32_t) origin.z, Color(0,0,1).toHex());
-	// Initial point on the "circle"
-	Tuple twelve = Point(0,0,1);
-	float radius = (float) LCD_WIDTH * 3 / 8; // 90 pixel
+	Tuple origin = Point(CANVAS_ORIGINX,0,CANVAS_ORIGINY);
+	write_pixel(raytracer_canvas, origin.x, origin.z, Color(0,0,1).toHex());
+	// Tuple ray_origin = Point(CANVAS_ORIGINY, 0, CANVAS_ORIGINY-5);
+	Tuple ray_origin = Point(0,0,-5);
+	// write_pixel(raytracer_canvas, ray_origin.x, ray_origin.z, Color(0,1,0).toHex());
 
-	const int points = 12;
 
-	for(int i = 0; i < points; i++) {
-		Matrix<4,4> r = RotationY(i * pi*2/points);
-		// Hours
-		Tuple hour = r * twelve;
-		// Multiply by radius and add offset
-		hour.x = ((float)hour.x * radius) + origin.x;
-		hour.z = ((float)hour.z * radius) + origin.z;
+	float wall_z = 10;
+	float wall_size = 7;
 
-		write_pixel(raytracer_canvas, (uint32_t) hour.x, (uint32_t) hour.z, Color(1,0,0).toHex());
+	float canvas_pixels = 240;
+	float pixel_size = wall_size / canvas_pixels;
+	float half = wall_size / 2;
+
+	auto color = Color(1,0,0);
+	auto shape = std::make_shared<Sphere>();
+	shape->SetTransform(Shearing(1,0,0,0,0,0) * Scaling(0.5,1,1));
+
+	for(int y = 0; y < canvas_pixels; y++) {
+		float world_y = half - pixel_size * y;
+		for(int x = 0; x < canvas_pixels; x++) {
+			float world_x = -half + pixel_size * x;
+
+			auto position = Point(world_x, world_y, wall_z);
+
+			auto r = Ray(ray_origin, (position - ray_origin).Normalize());
+			auto xs = shape->Intersect(r);
+
+			if(!equal(Hit(xs).t, 0)) {
+				// printf("Hit! At x: %d, y: %d\n", x, y);
+				write_pixel(raytracer_canvas, x, y, color.toHex());
+			}
+			//  else {
+			// 	printf("Missed!\n");
+			// }
+		}
 	}
-
 
 	while (1) {
 		continue;

@@ -5,6 +5,7 @@
 #include "tuple.h"
 #include "Intersection.h"
 #include <vector>
+#include <memory>
 
 class Intersection;
 

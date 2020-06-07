@@ -4,6 +4,7 @@
 #include <vector>
 #include <algorithm>
 #include "sphere.h"
+#include <memory>
 
 class Sphere;
 
