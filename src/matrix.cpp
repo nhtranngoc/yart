@@ -54,12 +54,11 @@ bool Matrix<ROWS, COLS>::operator != (const Matrix<ROWS,COLS> &m1) {
     return !this->operator==(m1);
 }
 
-template <uint8_t ROWS, uint8_t COLS>
-// typename std::enable_if<(ROWS == 4) && (COLS == 4), Matrix<4,4> >::type 
-Matrix<ROWS, COLS> Matrix<ROWS, COLS>::operator * (const Matrix<ROWS, COLS> &m1) {
-    Matrix<ROWS, COLS> retVal;
-    for(int i = 0; i < ROWS; i++) {
-        for(int j = 0; j < COLS; j++) {
+template<>
+Matrix<4, 4> Matrix<4, 4>::operator * (const Matrix<4, 4> &m1) {
+    Matrix<4, 4> retVal;
+    for(int i = 0; i < 4; i++) {
+        for(int j = 0; j < 4; j++) {
             retVal(i,j) = 
                 this->m_data[i][0] * m1.m_data[0][j] + 
                 this->m_data[i][1] * m1.m_data[1][j] +
@@ -71,8 +70,8 @@ Matrix<ROWS, COLS> Matrix<ROWS, COLS>::operator * (const Matrix<ROWS, COLS> &m1)
     return retVal;    
 }
 
-template <uint8_t ROWS, uint8_t COLS>
-Tuple Matrix<ROWS, COLS>::operator * (const Tuple &t) {
+template <>
+Tuple Matrix<4, 4>::operator * (const Tuple &t) {
     return Tuple(
         this->m_data[0][0] * t.x + this->m_data[0][1] * t.y + this->m_data[0][2] * t.z + this->m_data[0][3] * t.w,
         this->m_data[1][0] * t.x + this->m_data[1][1] * t.y + this->m_data[1][2] * t.z + this->m_data[1][3] * t.w,
@@ -81,8 +80,8 @@ Tuple Matrix<ROWS, COLS>::operator * (const Tuple &t) {
     );
 }
 
-template <uint8_t ROWS, uint8_t COLS>
-Matrix<ROWS, COLS> Matrix<ROWS, COLS>::Identity() {
+template <>
+Matrix<4,4> Matrix<4, 4>::Identity() {
     return Matrix<4,4> ({
         {1,0,0,0},
         {0,1,0,0},
@@ -178,8 +177,3 @@ Matrix<ROWS, COLS> Matrix<ROWS, COLS>::Inverse() {
 
     return retVal;
 }
-
-// Explicitly instantiate relevant templates
-template class Matrix<4,4>;
-// template class Matrix<3,3>;
-// template class Matrix<2,2>;

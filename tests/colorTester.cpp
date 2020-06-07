@@ -1,15 +1,7 @@
 #include <CppUTest/TestHarness.h>
 #include "color.h"
 
-TEST_GROUP(ColorTest) {
-    void setup() {
-
-    }
-
-    void tearDown() {
-
-    }
-};
+TEST_GROUP(ColorTest) {};
 
 TEST(ColorTest, AddingColors) {
     Color c1(0.9, 0.6, 0.75);

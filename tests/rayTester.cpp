@@ -1,7 +1,6 @@
 #include <CppUTest/TestHarness.h>
-#include "ray.cpp"
-#include "sphere.cpp"
-// #include "transformation.cpp"
+#include "ray.h"
+#include "sphere.h"
 
 #define EPSILON 0.0001
 

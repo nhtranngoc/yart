@@ -1,5 +1,5 @@
 #include <CppUTest/TestHarness.h>
-#include "transformation.cpp"
+#include "transformation.h"
 
 TEST_GROUP(TransformationTest){};
 

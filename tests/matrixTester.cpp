@@ -1,5 +1,5 @@
 #include <CppUTest/TestHarness.h>
-#include "matrix.cpp"
+#include "matrix.h"
 
 #define EPSILON 0.0001
 

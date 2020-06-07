@@ -1,11 +1,10 @@
 #include <CppUTest/TestHarness.h>
 
-#include "canvas.cpp"
+#include "canvas.h"
 
 uint32_t *const test_canvas = (uint32_t *) malloc(LCD_BYTES);
 
-TEST_GROUP(CanvasTest) {
-};
+TEST_GROUP(CanvasTest) {};
 
 TEST(CanvasTest, ClearCanvas) {
     clear_canvas(test_canvas);

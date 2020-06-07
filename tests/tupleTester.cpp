@@ -1,15 +1,7 @@
 #include <CppUTest/TestHarness.h>
-#include <tuple.h>
+#include "tuple.h"
 
-TEST_GROUP(TupleTest) {
-    void setup() {
-
-    }
-
-    void tearDown() {
-
-    }
-};
+TEST_GROUP(TupleTest) {};
 
 TEST(TupleTest, isAPoint) {
     Tuple tp(4.3,-4.2,3.1,1.0); 

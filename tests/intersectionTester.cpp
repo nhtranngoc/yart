@@ -1,5 +1,5 @@
 #include <CppUTest/TestHarness.h>
-#include "intersection.cpp"
+#include "intersection.h"
 
 #define EPSILON 0.0001
 
