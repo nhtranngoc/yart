@@ -2,6 +2,7 @@
 #include "canvas.cpp"
 #include "intersection.cpp"
 #include "matrix.cpp"
+#include "pointlight.cpp"
 #include "ray.cpp"
 #include "sphere.cpp"
 #include "transformation.cpp"
