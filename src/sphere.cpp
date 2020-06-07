@@ -34,3 +34,13 @@ std::vector<Intersection> Sphere::Intersect(Ray r) {
 void Sphere::SetTransform(Matrix<4,4> const &m) {
     this->transform = m;
 }
+
+Tuple Sphere::NormalAt(Tuple const &p) {
+    auto obj_p = (this->transform).Inverse() * p;
+    auto obj_n = obj_p - Point(0,0,0);
+
+    auto world_n = (this->transform).Inverse().Transpose() * obj_n;
+    world_n.w = 0;
+
+    return world_n.Normalize();
+}

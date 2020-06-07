@@ -111,6 +111,10 @@ Tuple Tuple::Cross(Tuple const &t) {
     );
 }
 
+Tuple Tuple::Reflect(Tuple const &n) {
+    return *(this) - n * 2 * this->Dot(n);
+}
+
 Tuple Point(float x, float y, float z) {
     Tuple tmp(x,y,z,1.0);
     return tmp;

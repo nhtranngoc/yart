@@ -1,9 +1,5 @@
 #include <CppUTest/TestHarness.h>
-#include "../src/tuple.cpp"
-
-extern "C" {
-
-}
+#include <tuple.h>
 
 TEST_GROUP(TupleTest) {
     void setup() {
@@ -135,4 +131,25 @@ TEST(TupleTest, crossProductOfTwoVectors) {
 
     CHECK(a.Cross(b) == Vector(-1,2,-1));
     CHECK(b.Cross(a) == Vector(1,-2,1));
+}
+
+TEST(TupleTest, ReflectAVectorApproachingAt45) {
+    auto v = Vector(1, -1, 0);
+    auto n = Vector(0, 1, 0);
+
+    auto r = v.Reflect(n);
+
+    CHECK(r == Vector(1,1,0));
+}
+
+TEST(TupleTest, ReflectAVectorOffASlantedSurface) {
+    auto v = Vector(0, -1, 0);
+    auto n = Vector(
+        (float) sqrt(2) / 2,
+        (float) sqrt(2) / 2,
+        0);
+
+    auto r = v.Reflect(n);
+
+    CHECK(r == Vector(1, 0, 0));
 }

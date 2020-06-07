@@ -20,6 +20,7 @@ class Tuple {
 		Tuple Normalize();
 		float Dot(Tuple const &);
 		Tuple Cross(Tuple const &);
+		Tuple Reflect(Tuple const &);
 
 	friend bool operator == (Tuple const &, Tuple const &);
 	friend Tuple operator + (Tuple const &, Tuple const &);
