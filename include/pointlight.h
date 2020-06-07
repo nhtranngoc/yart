@@ -2,6 +2,7 @@
 #define POINTLIGHT_H
 
 #include "color.h"
+#include "material.h"
 #include "tuple.h"
 
 class PointLight {
@@ -12,5 +13,7 @@ class PointLight {
         position(position_), 
         intensity(intensity_) {}
 };
+
+Color Lighting(Material const&, PointLight const&, Tuple const&, Tuple const&, Tuple const&);
 
 #endif // POINTLIGHT_H_

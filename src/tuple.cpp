@@ -57,6 +57,15 @@ Tuple operator * (Tuple const &t, float const s) {
     );
 }
 
+Tuple operator * (Tuple const &t1, Tuple const &t2) {
+    return Tuple(
+        t1.x * t2.x, 
+        t1.y * t2.y, 
+        t1.z * t2.z, 
+        t1.w * t2.z
+        );
+    }
+
 Tuple operator / (Tuple const &t, float const s) {
     return Tuple(
         t.x / s,
