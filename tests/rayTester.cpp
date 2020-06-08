@@ -1,6 +1,7 @@
 #include <CppUTest/TestHarness.h>
 #include "ray.h"
 #include "sphere.h"
+#include "intersection.h"
 
 TEST_GROUP(RayTest){};
 
@@ -124,4 +125,42 @@ TEST(RayTest, ChangingASpheresDefaultTransformation) {
     s->SetTransform(t);
 
     CHECK(s->transform == t);
+}
+
+TEST(RayTest, PrecomputingTheStateOfAnIntersection) {
+    auto r = Ray(Point(0,0,-5), Vector(0,0,1));
+    auto shape = std::make_shared<Sphere>();
+    auto i = Intersection(4, shape);
+
+    auto comps = r.Precomp(i);
+
+    DOUBLES_EQUAL(i.t, comps.t, EPSILON);
+    CHECK(i.object->operator== (*comps.object.get()));
+    CHECK(comps.point == Point(0,0,-1));
+    CHECK(comps.eyev == Vector(0,0,-1));
+    CHECK(comps.normalv == Vector(0,0,-1));
+}
+
+TEST(RayTest, TheHitWhenIntersectionOccursOnTheOutside) {
+    auto r = Ray(Point(0,0,-5), Vector(0,0,1));
+    auto shape = std::make_shared<Sphere>();
+    auto i = Intersection(4, shape);
+
+    auto comps = r.Precomp(i);
+
+    CHECK(!comps.inside);
+}
+
+TEST(RayTest, TheHitWhenIntersectionOccursOnTheInside) {
+    auto r = Ray(Point(0,0,0), Vector(0,0,1));
+    auto shape = std::make_shared<Sphere>();
+    auto i = Intersection(1, shape);
+
+    auto comps = r.Precomp(i);
+
+    CHECK(comps.point == Point(0,0,1));
+    CHECK(comps.eyev == Vector(0,0,-1));
+    CHECK(comps.inside);
+    // Normal would have been (0,0,1) but is inverted
+    CHECK(comps.normalv == Vector(0,0,-1));
 }

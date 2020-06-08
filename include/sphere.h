@@ -9,6 +9,7 @@
 #include <memory>
 
 class Intersection;
+class Ray;
 
 class Sphere : public enable_shared_from_this<Sphere> {
     public:

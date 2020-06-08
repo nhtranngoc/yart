@@ -5,6 +5,8 @@
 #include "sphere.h"
 #include "pointlight.h"
 #include "color.h"
+#include "intersection.h"
+#include "ray.h"
 
 class World {
     public:
@@ -16,6 +18,8 @@ class World {
         lights(std::vector<PointLight> {}) {}
 
     static World Default();
+
+    std::vector<Intersection> Intersect(Ray const &);
 };
 
 #endif // WORLD_H_

@@ -18,3 +18,15 @@ World World::Default() {
 
     return retVal;
 }
+
+std::vector<Intersection> World::Intersect(Ray const &r) {
+    std::vector<Intersection> retVal;
+    for (auto const& obj : this->objects) {
+        auto xs = obj->Intersect(r);
+        retVal.insert(retVal.end(), xs.begin(), xs.end());
+    }
+
+    std::sort(retVal.begin(), retVal.end());
+
+    return retVal;
+}

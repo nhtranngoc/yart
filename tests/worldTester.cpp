@@ -1,5 +1,7 @@
 #include <CppUTest/TestHarness.h>
 #include "world.h"
+#include "ray.h"
+#include "intersection.h"
 
 #include <algorithm>
 
@@ -29,4 +31,17 @@ TEST(WorldTest, TheDefaultWorld) {
     // That's neat!
     CHECK(w.objects[0]->operator==(*s1.get()));
     CHECK(w.objects[1]->operator==(*s2.get()));
+}
+
+TEST(WorldTest, IntersectAWorldWithARay) {
+    auto w = World::Default();
+    auto r = Ray(Point(0,0,-5), Vector(0,0,1));
+
+    auto xs = w.Intersect(r);
+
+    LONGS_EQUAL(4, xs.size());
+    DOUBLES_EQUAL(4, xs[0].t, EPSILON);
+    DOUBLES_EQUAL(4.5, xs[1].t, EPSILON);
+    DOUBLES_EQUAL(5.5, xs[2].t, EPSILON);
+    DOUBLES_EQUAL(6, xs[3].t, EPSILON);
 }

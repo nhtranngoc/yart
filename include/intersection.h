@@ -3,10 +3,20 @@
 
 #include <vector>
 #include <algorithm>
-#include "sphere.h"
 #include <memory>
+#include "sphere.h"
+#include "tuple.h"
 
 class Sphere;
+
+struct Computations {
+    float t;
+    std::shared_ptr<Sphere> object;
+    Tuple point;
+    Tuple eyev;
+    Tuple normalv;
+    bool inside;
+};
 
 class Intersection {
     public:
