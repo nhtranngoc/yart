@@ -30,3 +30,37 @@ std::vector<Intersection> World::Intersect(Ray const &r) {
 
     return retVal;
 }
+
+Color World::ShadeHit(Computations const &comps) {
+    Color finalShade = Color(0,0,0);
+    // Iterate through all light sources
+    // This will slow the renderer down 
+    for(const auto lightSource : this->lights) {
+        finalShade = finalShade + Lighting(
+            comps.object->material,
+            lightSource,
+            comps.point,
+            comps.eyev,
+            comps.normalv
+        );
+    }
+
+    return finalShade;
+}
+
+Color World::ColorAt(Ray &r) {
+    // Find the intersections of the ray with the world
+    auto xs = this->Intersect(r);
+    // Find the hit
+    auto hit = Hit(xs);
+    
+    // If there's no intersections, return color black
+    if(hit.object == nullptr) {
+        return Color::Black();
+    }
+
+    // Otherwise, compute and return the color shade at the hit
+    auto comps = r.Precomp(hit);
+
+    return this->ShadeHit(comps);
+}

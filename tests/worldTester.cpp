@@ -45,3 +45,60 @@ TEST(WorldTest, IntersectAWorldWithARay) {
     DOUBLES_EQUAL(5.5, xs[2].t, EPSILON);
     DOUBLES_EQUAL(6, xs[3].t, EPSILON);
 }
+
+TEST(WorldTest, ShadingAnIntersection) {
+    auto w = World::Default();
+    auto r = Ray(Point(0,0,-5), Vector(0,0,1));
+    auto shape = w.objects[0];
+    auto i = Intersection(4, shape);
+
+    auto comps = r.Precomp(i);
+    auto c = w.ShadeHit(comps);
+
+    CHECK(c == Color(0.38066, 0.47583, 0.2855));
+}
+
+TEST(WorldTest, ShadingAnIntersectionFromTheInside) {
+    auto w = World::Default();
+    w.lights[0] = PointLight(Point(0,0.25,0), Color(1,1,1));
+    auto r = Ray(Point(0,0,0), Vector(0,0,1));
+    auto shape = w.objects[1];
+    auto i = Intersection(0.5, shape);
+
+    auto comps = r.Precomp(i);
+    auto c = w.ShadeHit(comps);
+
+    CHECK(c == Color(0.90498, 0.90498, 0.90498));
+}
+
+TEST(WorldTest, TheColorWhenARayMisses) {
+    auto w = World::Default();
+    auto r = Ray(Point(0,0,-5), Vector(0,1,0));
+
+    auto c = w.ColorAt(r);
+
+    CHECK(c == Color(0,0,0));
+}
+
+TEST(WorldTest, TheColorWhenARayHits) {
+    auto w = World::Default();
+    auto r = Ray(Point(0,0,-5), Vector(0,0,1));
+
+    auto c = w.ColorAt(r);
+
+    CHECK(c == Color(0.38066, 0.47583, 0.2855));
+}
+
+TEST(WorldTest, TheColorWithIntersectionBehindTheRay) {
+    auto w = World::Default();
+    auto outer = w.objects[0];
+    auto inner = w.objects[1];
+    outer->material.ambient = 1;
+    inner->material.ambient = 1;
+    auto r = Ray(Point(0,0,0.75), Vector (0,0,-1));
+
+    auto c = w.ColorAt(r);
+
+    CHECK(c == inner->material.color);
+
+}

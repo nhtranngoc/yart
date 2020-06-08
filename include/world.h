@@ -8,6 +8,11 @@
 #include "intersection.h"
 #include "ray.h"
 
+class Intersection;
+class Ray;
+class Color;
+struct Computations;
+
 class World {
     public:
     std::vector<std::shared_ptr<Sphere> > objects;
@@ -20,6 +25,8 @@ class World {
     static World Default();
 
     std::vector<Intersection> Intersect(Ray const &);
+    Color ShadeHit(Computations const &);
+    Color ColorAt(Ray &);
 };
 
 #endif // WORLD_H_
