@@ -1,7 +1,7 @@
 #include <CppUTest/CommandLineTestRunner.h>
+#include "canvas.cpp"
 #include "tuple.cpp"
 #include "matrix.cpp"
-#include "canvas.cpp"
 #include "intersection.cpp"
 #include "material.cpp"
 #include "pointlight.cpp"
@@ -9,6 +9,7 @@
 #include "sphere.cpp"
 #include "transformation.cpp"
 #include "world.cpp"
+#include "camera.cpp"
 
 #define EPSILON 0.0001
 

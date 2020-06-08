@@ -4,17 +4,15 @@
 #include <stdint.h>
 #include "color.h"
 
-// Yes, this is duplicate of lcd-dma.h, but it'll work for now.
-// Famous Last Words - nhtranngoc
-#define LCD_WIDTH  240
-#define LCD_HEIGHT 320
+class Color;
 
-#define LCD_PIXEL_SIZE (sizeof(uint32_t))
-#define LCD_PIXELS (LCD_WIDTH * LCD_HEIGHT)
-#define LCD_BYTES  (LCD_PIXELS * LCD_PIXEL_SIZE)
+class Canvas {
+    public:
+    uint32_t height, width;
+    uint32_t *buffer;
+    Canvas(uint32_t, uint32_t);
 
-
-void clear_canvas(uint32_t *canvas);
-void write_pixel(uint32_t *canvas, int x, int y, uint32_t c);
+    void WritePixel(uint32_t, uint32_t, Color);
+};
 
 #endif //CANVAS_H_

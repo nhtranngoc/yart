@@ -2,19 +2,18 @@
 
 #include "canvas.h"
 
-uint32_t *const test_canvas = (uint32_t *) malloc(LCD_BYTES);
-
 TEST_GROUP(CanvasTest) {};
 
-TEST(CanvasTest, ClearCanvas) {
-    clear_canvas(test_canvas);
+TEST(CanvasTest, DefaultCanvasColorIsBlack) {
+    auto image = Canvas(320, 240);
 
-    LONGS_EQUAL(0xff000000, test_canvas[0]);
+    LONGS_EQUAL(0xff000000, image.buffer[0]);
 }
 
 TEST(CanvasTest, WritePixel) {
-    clear_canvas(test_canvas);
-    write_pixel(test_canvas, 2, 3, Color(1,0,0).toHex());
+    auto image = Canvas(320, 240);
 
-    LONGS_EQUAL(0xffff0000, test_canvas[(2*240+3)]);
+    image.WritePixel(2, 3, Color(1,0,0));
+    
+    LONGS_EQUAL(0xffff0000, image.buffer[(2*240+3)]);
 }
