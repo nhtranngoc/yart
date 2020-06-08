@@ -3,9 +3,11 @@
 
 #include <stdint.h>
 #include <cmath>
+#include <math.h>
 #include "matrix.h"
 #include "ray.h"
 #include "canvas.h"
+#include "world.h"
 
 class Ray;
 class Canvas;

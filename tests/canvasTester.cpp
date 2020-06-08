@@ -4,9 +4,14 @@
 
 TEST_GROUP(CanvasTest) {};
 
-TEST(CanvasTest, DefaultCanvasColorIsBlack) {
-    auto image = Canvas(320, 240);
+TEST(CanvasTest, CanvasContainsBufferOfAppropriateSize) {
+    auto image = Canvas(10, 10);
 
+    LONGS_EQUAL(0xff000000, image.buffer[99]);
+}
+
+TEST(CanvasTest, CanvasInitializationIsBlack) {
+    auto image = Canvas(10, 10);
     LONGS_EQUAL(0xff000000, image.buffer[0]);
 }
 
