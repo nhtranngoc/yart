@@ -1,5 +1,7 @@
 #include <CppUTest/TestHarness.h>
 #include "transformation.h"
+#include "tuple.h"
+#include "matrix.h"
 
 TEST_GROUP(TransformationTest){};
 
@@ -163,4 +165,52 @@ TEST(TransformationTest, ChainedTransformationAppliedInReverseOrder) {
 
     Matrix<4,4> T = C * B * A;
     CHECK((T * p) == Point(15,0,7));
+}
+
+TEST(TransformationTest, TransformationMatrixForDefaultOrientation) {
+    auto from = Point(0,0,0);
+    auto to = Point(0,0,-1);
+    auto up = Vector(0,1,0);
+
+    auto t = View(from, to, up);
+    auto identity = Matrix<4,4>::Identity();
+
+    CHECK(t == identity);
+}
+
+TEST(TransformationTest, ViewTransformationLookingInPositiveZDirection) {
+    auto from = Point(0,0,0);
+    auto to = Point(0,0,1);
+    auto up = Vector(0,1,0);
+
+    auto t = View(from, to, up);
+
+    CHECK(t == Scaling(-1, 1, -1));
+}
+
+TEST(TransformationTest, ViewTransformationMovesTheWorld) {
+    auto from = Point(0,0,8);
+    auto to = Point(0,0,0);
+    auto up = Vector(0,1,0);
+
+    auto t = View(from, to, up);
+
+    CHECK(t == Translation(0,0,-8));
+}
+
+TEST(TransformationTest, ArbitraryViewTransformation) {
+    auto from = Point(1,3,2);
+    auto to = Point(4,-2,8);
+    auto up = Vector(1,1,0);
+
+    auto t = View(from, to, up);
+
+    auto m = Matrix<4,4> ({
+        {-0.50709, 0.50709,  0.67612, -2.36643},
+        {0.76772, 0.60609,  0.12122, -2.82843},
+        {-0.35857, 0.59761, -0.71714,  0.00000},
+        {0.00000, 0.00000,  0.00000,  1.00000}
+    });
+
+    CHECK(t == m);
 }

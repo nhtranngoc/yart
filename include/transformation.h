@@ -13,5 +13,6 @@ Matrix<4,4> RotationX(float);
 Matrix<4,4> RotationY(float);
 Matrix<4,4> RotationZ(float);
 Matrix<4,4> Shearing(float, float, float, float, float, float);
+Matrix<4,4> View(Tuple, Tuple, Tuple);
 
 #endif // TRANSFORMATION_H_
