@@ -9,6 +9,7 @@
 #include "ray.h"
 
 class Intersection;
+class Sphere;
 class Ray;
 class Color;
 struct Computations;

@@ -17,6 +17,8 @@
 #define CANVAS_ORIGINX (LCD_HEIGHT/2)
 #define CANVAS_ORIGINY (LCD_WIDTH/2)
 
+layer1_pixel *const raytracer_canvas = (uint32_t *)SDRAM_BASE_ADDRESS;
+
 struct Projectile {
 	Tuple pos;
 	Tuple velocity;
@@ -51,20 +53,21 @@ int main(int argc, char **argv) {
 	/* set up SDRAM. */
 	sdram_init();
 
-	auto raytracer_canvas = Canvas(LCD_HEIGHT, LCD_WIDTH);
-	raytracer_canvas.buffer = (uint32_t *)SDRAM_BASE_ADDRESS;
-
 	printf("Preloading frame buffers\n");
 
 	printf("Initializing LCD\n");
-	lcd_dma_init(raytracer_canvas.buffer);
+	auto image = Canvas(LCD_HEIGHT, LCD_WIDTH);
+	lcd_dma_init(raytracer_canvas);
 	lcd_spi_init();
+	image.Init(raytracer_canvas);
 	printf("Initialized.\n");
 	
 	// Draw origin point
 	Tuple origin = Point(CANVAS_ORIGINX,0,CANVAS_ORIGINY);
-	raytracer_canvas.WritePixel(origin.x, origin.z, Color(0,0,1));
+	image.WritePixel(raytracer_canvas, origin.x, origin.z, Color::Blue());
+	// Tuple ray_origin = Point(CANVAS_ORIGINY, 0, CANVAS_ORIGINY-5);
 	Tuple ray_origin = Point(0,0,-5);
+	// write_pixel(raytracer_canvas, ray_origin.x, ray_origin.z, Color(0,1,0).toHex());
 
 	float wall_z = 10;
 	float wall_size = 7;
@@ -74,15 +77,13 @@ int main(int argc, char **argv) {
 	float half = wall_size / 2;
 
 	auto shape = std::make_shared<Sphere>();
-	(shape->material).color = Color(0.2, 0.2, 1);
+	(shape->material).color = Color(1, 0.2, 1);
 	// shape->SetTransform(Shearing(1,0,0,0,0,0) * Scaling(0.5,1,1));
 
 	// Light source
 	auto light_position = Point(-10, 10, -10);
 	auto light_color = Color::White();
 	auto light = PointLight(light_position, light_color);
-
-	printf("Hi.\n");
 
 	for(int y = 0; y < canvas_pixels; y++) {
 		float world_y = half - pixel_size * y;
@@ -102,7 +103,7 @@ int main(int argc, char **argv) {
 				auto eye = -r.direction;
 
 				auto color = Lighting((hit.object)->material, light, point, eye, normal);
-				raytracer_canvas.WritePixel(x, y, color);
+				image.WritePixel(raytracer_canvas, x, y, color);
 			}
 		}
 	}

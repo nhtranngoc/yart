@@ -23,7 +23,7 @@ class Camera {
     Camera(uint32_t hsize_, uint32_t vsize_, float field_of_view_);
 
     Ray RayForPixel(uint32_t const, uint32_t const);
-    Canvas Render(World &w);
+    Canvas Render(uint32_t *canvas, World &w);
 };
 
 #endif //CAMERA_H_

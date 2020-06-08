@@ -40,7 +40,7 @@ Ray Camera::RayForPixel(uint32_t const px, uint32_t const py) {
     return Ray(origin, direction);
 }
 
-Canvas Camera::Render(World &w) {
+Canvas Camera::Render(uint32_t *canvas, World &w) {
     auto image = Canvas(this->hsize, this->vsize);
 
     for(auto y = 0; y < this->vsize; y++) {
@@ -48,7 +48,7 @@ Canvas Camera::Render(World &w) {
             auto ray = this->RayForPixel(x, y);
             auto color = w.ColorAt(ray);
 
-            image.WritePixel(x, y, color);
+            image.WritePixel(canvas, x, y, color);
         }
     }
 

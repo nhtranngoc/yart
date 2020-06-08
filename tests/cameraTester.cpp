@@ -66,8 +66,10 @@ TEST(CameraTest, RenderingAworldWithACamera) {
     auto to = Point(0,0,0);
     auto up = Vector(0,1,0);
 
-    c.transform = View(from, to, up);
-    auto image = c.Render(w);
+    uint32_t *canvas = (uint32_t *) malloc(11*11*4);
 
-    CHECK(image.PixelAt(5,5) == Color(0.38066, 0.47583, 0.2855).toHex());    
+    c.transform = View(from, to, up);
+    auto image = c.Render(canvas, w);
+
+    CHECK(image.PixelAt(canvas, 5,5) == Color(0.38066, 0.47583, 0.2855).toHex());    
 }
