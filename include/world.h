@@ -28,6 +28,7 @@ class World {
     std::vector<Intersection> Intersect(Ray const &);
     Color ShadeHit(Computations const &);
     Color ColorAt(Ray &);
+    bool IsShadowed(Tuple const &);
 };
 
 #endif // WORLD_H_

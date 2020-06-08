@@ -164,3 +164,16 @@ TEST(RayTest, TheHitWhenIntersectionOccursOnTheInside) {
     // Normal would have been (0,0,1) but is inverted
     CHECK(comps.normalv == Vector(0,0,-1));
 }
+
+TEST(RayTest, TheHitShouldOffsetThePoint) {
+    auto r = Ray(Point(0,0,-5), Vector(0,0,1));
+    auto shape = std::make_shared<Sphere>();
+    shape->SetTransform(Translation(0,0,1));
+    auto i = Intersection(5, shape);
+
+    auto comps = r.Precomp(i);
+    
+    // Bumping the point slightly in the normal direction
+    CHECK(comps.over_point.z < -EPSILON/2);
+    CHECK(comps.point.z > comps.over_point.z);
+}

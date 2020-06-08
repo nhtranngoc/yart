@@ -11,7 +11,7 @@
 #include "world.cpp"
 #include "camera.cpp"
 
-#define EPSILON 0.0001
+#define EPSILON 0.001
 
 int main(int argc, char **argv) {
     return CommandLineTestRunner::RunAllTests(argc, argv);

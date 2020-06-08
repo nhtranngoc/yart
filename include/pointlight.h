@@ -16,6 +16,6 @@ class PointLight {
     bool operator== (PointLight const &);
 };
 
-Color Lighting(Material const&, PointLight const&, Tuple const&, Tuple const&, Tuple const&);
+Color Lighting(Material const&, PointLight const&, Tuple const&, Tuple const&, Tuple const&, bool in_shadow = false);
 
 #endif // POINTLIGHT_H_

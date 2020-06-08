@@ -16,6 +16,7 @@ struct Computations {
     Tuple eyev;
     Tuple normalv;
     bool inside;
+    Tuple over_point;
 };
 
 class Intersection {

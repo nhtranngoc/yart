@@ -2,8 +2,8 @@
 #include "world.h"
 #include "ray.h"
 #include "intersection.h"
-
-#include <algorithm>
+#include "tuple.h"
+#include "color.h"
 
 TEST_GROUP(WorldTest) {};
 
@@ -101,4 +101,48 @@ TEST(WorldTest, TheColorWithIntersectionBehindTheRay) {
 
     CHECK(c == inner->material.color);
 
+}
+
+TEST(WorldTest, ThereIsNoShadowWhenNothingIsCollinearWithPointAndLight) {
+    auto w = World::Default();
+    auto p = Point(0,10,0);
+
+    CHECK(!w.IsShadowed(p));
+}
+
+TEST(WorldTest, TheShadowWhenThereIsObjectBetweenPointAndLight) {
+    auto w = World::Default();
+    auto p = Point(10,-10,10);
+
+    CHECK(w.IsShadowed(p));
+}
+
+TEST(WorldTest, ThereIsNoShadowWhenObjectIsBehindLight) {
+    auto w = World::Default();
+    auto p = Point(-20, 20, -20);
+
+    CHECK(!w.IsShadowed(p));
+}
+
+TEST(WorldTest, ThereIsNoShadowWhenObjectIsBehindPoint) {
+    auto w = World::Default();
+    auto p = Point(-2,2,-2);
+
+    CHECK(!w.IsShadowed(p));
+}
+
+TEST(WorldTest, ShadeHitIsGivenAnIntersectionInShadow) {
+    auto w = World();
+    w.lights.push_back(PointLight(Point(0,0,-10), Color(1,1,1)));
+    auto s1 = std::make_shared<Sphere>();
+    auto s2 = std::make_shared<Sphere>();
+    s2->SetTransform(Translation(0,0,10));
+    w.objects.insert(w.objects.end(), {s1, s2});
+    auto r = Ray(Point(0,0,5), Vector(0,0,1));
+    auto i = Intersection(4,s2);
+
+    auto comps = r.Precomp(i);
+    auto c = w.ShadeHit(comps);
+
+    CHECK(c == Color(0.1, 0.1, 0.1));
 }

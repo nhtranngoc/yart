@@ -13,34 +13,13 @@
 #include "transformation.h"
 #include "material.h"
 #include "pointlight.h"
+#include "world.h"
+#include "camera.h"
 
 #define CANVAS_ORIGINX (LCD_HEIGHT/2)
 #define CANVAS_ORIGINY (LCD_WIDTH/2)
 
 layer1_pixel *const raytracer_canvas = (uint32_t *)SDRAM_BASE_ADDRESS;
-
-struct Projectile {
-	Tuple pos;
-	Tuple velocity;
-	// Using member initializer list
-	Projectile(Tuple const &pos_, Tuple const &velocity_):
-		pos(pos_),
-		velocity(velocity_) {}
-};
-
-struct Environment {
-	Tuple gravity;
-	Tuple wind;
-
-	Environment(Tuple const &gravity_, Tuple const &wind_):
-		gravity(gravity_),
-		wind(wind_) {}
-};
-
-static void tick(Environment const &e, Projectile &p) {
-	p.pos = p.pos + p.velocity;
-	p.velocity = p.velocity + e.gravity + e.wind;
-}
 
 int main(int argc, char **argv) {
 	/* init timers. */
@@ -59,54 +38,82 @@ int main(int argc, char **argv) {
 	auto image = Canvas(LCD_HEIGHT, LCD_WIDTH);
 	lcd_dma_init(raytracer_canvas);
 	lcd_spi_init();
-	image.Init(raytracer_canvas);
+	// image.Init(raytracer_canvas);
 	printf("Initialized.\n");
 	
-	// Draw origin point
+	// Draw origin point - this is mostly for testing purposes
 	Tuple origin = Point(CANVAS_ORIGINX,0,CANVAS_ORIGINY);
 	image.WritePixel(raytracer_canvas, origin.x, origin.z, Color::Blue());
-	// Tuple ray_origin = Point(CANVAS_ORIGINY, 0, CANVAS_ORIGINY-5);
-	Tuple ray_origin = Point(0,0,-5);
-	// write_pixel(raytracer_canvas, ray_origin.x, ray_origin.z, Color(0,1,0).toHex());
+	
+	// The floor is an extremely flattened sphere with a matte texture
+	auto floor = std::make_shared<Sphere>();
+	floor->SetTransform(Scaling(10,0.01,10));
+	floor->material = Material();
+	floor->material.color = Color(1,0.9,0.9);
+	floor->material.specular = 0;
 
-	float wall_z = 10;
-	float wall_size = 7;
+	// The wall on the left has the same scale and color as 
+	// the floor, but rotated and translated to place
+	auto left_wall = std::make_shared<Sphere>();
+	left_wall->SetTransform(
+		Translation(0,0,5) * 
+		RotationY(-pi/4) * 
+		RotationX(pi/2) *
+		Scaling(10, 0.01, 10));
+	left_wall->material = Material();
+	left_wall->material.color = Color(1,0.9,0.9);
+	left_wall->material.specular = 0;
 
-	float canvas_pixels = 240;
-	float pixel_size = wall_size / canvas_pixels;
-	float half = wall_size / 2;
+	// The wall on the right is idential to left wall, but 
+	// is rotated the opposite direction in y.
+	auto right_wall = std::make_shared<Sphere>();
+	right_wall->SetTransform(
+		Translation(0,0,5) * 
+		RotationY(pi/4) * 
+		RotationX(pi/2) *
+		Scaling(10, 0.01, 10));
+	right_wall->material = Material();
+	right_wall->material.color = Color(1,0.9,0.9);
+	right_wall->material.specular = 0;
 
-	auto shape = std::make_shared<Sphere>();
-	(shape->material).color = Color(1, 0.2, 1);
-	// shape->SetTransform(Shearing(1,0,0,0,0,0) * Scaling(0.5,1,1));
+	// The large sphere in the middle is a unit sphere
+	// translated upward slightly and colored green
+	auto middle = std::make_shared<Sphere>();
+	middle->SetTransform(Translation(-0.5,1,0.5));
+	middle->material = Material();
+	middle->material.color = Color(0.1,1,0.5);
+	middle->material.diffuse = 0.7;
+	middle->material.specular = 0.3;
 
-	// Light source
-	auto light_position = Point(-10, 10, -10);
-	auto light_color = Color::White();
-	auto light = PointLight(light_position, light_color);
+	// The smaller green sphere on the right is scaled in half
+	auto right = std::make_shared<Sphere>();
+	right->SetTransform(Translation(1.5,0.5,-0.5) * Scaling(0.5,0.5,0.5));
+	right->material = Material();
+	right->material.color = Color(0.5,1,0.1);
+	right->material.diffuse = 0.7;
+	right->material.specular = 0.3;
 
-	for(int y = 0; y < canvas_pixels; y++) {
-		float world_y = half - pixel_size * y;
-		for(int x = 0; x < canvas_pixels; x++) {
-			float world_x = -half + pixel_size * x;
+	// The smallest sphere is scaled by a third, before being translated
+	auto left = std::make_shared<Sphere>();
+	left->SetTransform(Translation(-1.5,0.33,-0.75) * Scaling(0.33,0.33,0.33));
+	left->material = Material();
+	left->material.color = Color(1,0.1,0.1);
+	left->material.diffuse = 0.7;
+	left->material.specular = 0.3;
 
-			auto position = Point(world_x, world_y, wall_z);
+	// The light source is white, shining from above and to the left
+	auto w = World();
+	w.lights.push_back(PointLight(Point(-10,10,-10), Color::White()));
+	w.objects.insert(w.objects.end(), {floor, left_wall, right_wall, middle, right, left});
 
-			auto r = Ray(ray_origin, (position - ray_origin).Normalize());
-			auto xs = shape->Intersect(r);
-
-			// If there's a hit
-			auto hit = Hit(xs);
-			if(!equal(hit.t, 0)) {
-				auto point = r.Position(hit.t);
-				auto normal = (hit.object)->NormalAt(point);
-				auto eye = -r.direction;
-
-				auto color = Lighting((hit.object)->material, light, point, eye, normal);
-				image.WritePixel(raytracer_canvas, x, y, color);
-			}
-		}
-	}
+	auto camera = Camera(LCD_HEIGHT, LCD_WIDTH, pi/3);
+	camera.transform = View(
+		Point(0,1.5,-5),
+		Point(0,1,0),
+		Vector(0,1,0)
+	);
+	
+	auto canvas = camera.Render(raytracer_canvas, w);
 
 	while (1) {
 		continue;

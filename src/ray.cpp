@@ -41,5 +41,8 @@ Computations Ray::Precomp(Intersection const& i) {
         comps.inside = false;
     }
 
+    // Bump the point up a bit
+    comps.over_point = comps.point + (comps.normalv * EPSILON);
+
     return comps;    
 }

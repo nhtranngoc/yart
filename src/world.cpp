@@ -32,16 +32,18 @@ std::vector<Intersection> World::Intersect(Ray const &r) {
 }
 
 Color World::ShadeHit(Computations const &comps) {
+    auto shadowed = this->IsShadowed(comps.over_point);
     Color finalShade = Color(0,0,0);
     // Iterate through all light sources
-    // This will slow the renderer down 
+    // Multiple light sources will slow the renderer down
     for(const auto lightSource : this->lights) {
         finalShade = finalShade + Lighting(
             comps.object->material,
             lightSource,
-            comps.point,
+            comps.over_point,
             comps.eyev,
-            comps.normalv
+            comps.normalv,
+            shadowed
         );
     }
 
@@ -63,4 +65,30 @@ Color World::ColorAt(Ray &r) {
     auto comps = r.Precomp(hit);
 
     return this->ShadeHit(comps);
+}
+
+bool World::IsShadowed(Tuple const &point) {
+    for(auto light : this->lights) {
+        // Measure the distance from point to light source
+        auto v = light.position - point;
+        auto distance = v.Magnitude();
+        auto direction = v.Normalize();
+
+        // Cast a ray from point toward the light source
+        auto r = Ray(point, direction);
+
+        // Which will intersect the world
+        auto xs = this->Intersect(r);
+
+        auto h = Hit(xs);
+        //If there is a hit
+        // And t < distance
+        if(h.t > 0 && h.t < distance) {
+            // Then the hit lies between the point and the light source
+            // Point in shadow
+            return true;
+        }
+
+        return false;
+    }
 }

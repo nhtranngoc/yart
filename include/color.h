@@ -15,6 +15,7 @@ class Color : public Tuple {
             uint8_t r = (this->x >= 1.0) ? 255 : (this->x <= 0.0) ? 0 : (this->x)*255;
             uint8_t g = (this->y >= 1.0) ? 255 : (this->y <= 0.0) ? 0 : (this->y)*255;
             uint8_t b = (this->z >= 1.0) ? 255 : (this->z <= 0.0) ? 0 : (this->z)*255;
+            
             return (
                 0xff000000 | 
                 (r << 16) | 

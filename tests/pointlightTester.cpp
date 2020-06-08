@@ -79,3 +79,14 @@ TEST(PointLightTest, LightingWithLightBehindSurface) {
 
     CHECK(result == Color(0.1, 0.1, 0.1));
 }
+
+TEST(PointLightTest, LightingWithTheSurfaceInShadow) {
+    auto eyev = Vector(0,0,-1);
+    auto normalv = Vector(0,0,-1);
+    auto light = PointLight(Point(0,0,-10), Color(1,1,1));
+    auto in_shadow = true;
+
+    auto result = Lighting(m, light, position, eyev, normalv, in_shadow);
+
+    CHECK(result == Color(0.1, 0.1, 0.1));
+}

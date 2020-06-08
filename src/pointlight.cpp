@@ -1,6 +1,6 @@
 #include "pointlight.h"
 
-Color Lighting(Material const& material, PointLight const& light, Tuple const& point, Tuple const& eyev, Tuple const& normalv) {
+Color Lighting(Material const& material, PointLight const& light, Tuple const& point, Tuple const& eyev, Tuple const& normalv, bool in_shadow) {
     // Combine surface color with light's intensity/color
     Color effective_color = material.color * light.intensity;
 
@@ -19,7 +19,7 @@ Color Lighting(Material const& material, PointLight const& light, Tuple const& p
 
     if(light_dot_normal >= 0) {
         // Compute the diffuse contribution
-        diffuse = effective_color * (material.diffuse * light_dot_normal);
+        diffuse = (in_shadow) ? Color::Black() : effective_color * (material.diffuse * light_dot_normal);
 
         // reflect_dot_eye represents the cosine of the angle between the
         // reflection vector and the eye vector. A negative number means the 
@@ -29,7 +29,7 @@ Color Lighting(Material const& material, PointLight const& light, Tuple const& p
 
         if(reflect_dot_eye > 0) {
             auto factor = pow(reflect_dot_eye, material.shininess);
-            specular = light.intensity * material.specular * factor;
+            specular = (in_shadow) ? Color::Black() : light.intensity * material.specular * factor;
         }
     }
 
