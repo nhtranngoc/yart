@@ -19,8 +19,8 @@ Matrix<4,4> Scaling(float x, float y, float z) {
 }
 
 Matrix<4,4> RotationX(float r) {
-    float const cosr = std::cos(r);
-    float const sinr = std::sin(r);
+    float const cosr = cosf(r);
+    float const sinr = sinf(r);
 
     return Matrix<4,4>({
         {1,0,0,0},
@@ -31,8 +31,8 @@ Matrix<4,4> RotationX(float r) {
 }
 
 Matrix<4,4> RotationY(float r) {
-    float const cosr = std::cos(r);
-    float const sinr = std::sin(r);
+    float const cosr = cosf(r);
+    float const sinr = sinf(r);
 
     return Matrix<4,4>({
         {cosr,0,sinr,0},
@@ -43,8 +43,8 @@ Matrix<4,4> RotationY(float r) {
 }
 
 Matrix<4,4> RotationZ(float r) {
-    float const cosr = std::cos(r);
-    float const sinr = std::sin(r);
+    float const cosr = cosf(r);
+    float const sinr = sinf(r);
 
     return Matrix<4,4>({
         {cosr,-sinr, 0,0},

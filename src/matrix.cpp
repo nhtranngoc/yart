@@ -160,7 +160,7 @@ float Matrix<ROWS, COLS>::Cofactor(uint8_t row, uint8_t col) {
 
 template<uint8_t ROWS, uint8_t COLS>
 bool Matrix<ROWS, COLS>::IsInvertible() {
-    return (this->Determinant() == 0) ? false : true;
+    return (this->Determinant() == 0.f) ? false : true;
 }
 
 template<uint8_t ROWS, uint8_t COLS>

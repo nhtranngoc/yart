@@ -8,7 +8,7 @@ Intersection::Intersection(float t_, std::shared_ptr<Sphere> object_) {
 Intersection Hit(std::vector<Intersection> const &xs) {
     for (auto x : xs) {
         // Return first non-zero element.
-        if(x.t > 0) {
+        if(x.t > 0.f) {
             return x;
         }
     }

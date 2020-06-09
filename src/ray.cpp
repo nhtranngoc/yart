@@ -34,7 +34,7 @@ Computations Ray::Precomp(Intersection const& i) {
     comps.normalv = i.object->NormalAt(comps.point);
 
     // Check if the hit occurs from the inside of the shape
-    if(comps.normalv.Dot(comps.eyev) < 0) {
+    if(comps.normalv.Dot(comps.eyev) < 0.f) {
         comps.inside = true;
         comps.normalv = -comps.normalv;
     } else {
@@ -42,7 +42,7 @@ Computations Ray::Precomp(Intersection const& i) {
     }
 
     // Bump the point up a bit
-    comps.over_point = comps.point + (comps.normalv * EPSILON);
+    comps.over_point = comps.point + (comps.normalv * 0.01);
 
     return comps;    
 }

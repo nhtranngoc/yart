@@ -16,10 +16,12 @@ link_directories(${OPENCM3_DIR}/lib)
 set(CMAKE_ASM_FLAGS "-D__ASSEMBLY__ -mcpu=cortex-m4 -mthumb")
 set(CMAKE_C_FLAGS " \
 ${COMMON_C_FLAGS} \
+-fsingle-precision-constant -Wdouble-promotion -Wfloat-conversion \
 ${ARCH_FLAGS}")
 
 set(CMAKE_CXX_FLAGS " \
 ${COMMON_CXX_FLAGS} \
+-fsingle-precision-constant -Wdouble-promotion -Wfloat-conversion \
 ${ARCH_FLAGS}")
 
 set(CMAKE_EXE_LINKER_FLAGS " \

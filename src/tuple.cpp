@@ -135,5 +135,5 @@ Tuple Vector(float x, float y, float z) {
 }
 
 bool equal(float x, float y) {
-    return (std::abs(x -y) < EPSILON);
+    return (fabs(x -y) < STM32_EPSILON);
 }

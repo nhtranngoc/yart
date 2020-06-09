@@ -12,9 +12,9 @@ class Color : public Tuple {
         inline float g() {return this->y;}
         inline float b() {return this->z;}
         inline uint32_t toHex() {
-            uint8_t r = (this->x >= 1.0) ? 255 : (this->x <= 0.0) ? 0 : (this->x)*255;
-            uint8_t g = (this->y >= 1.0) ? 255 : (this->y <= 0.0) ? 0 : (this->y)*255;
-            uint8_t b = (this->z >= 1.0) ? 255 : (this->z <= 0.0) ? 0 : (this->z)*255;
+            uint8_t r = (this->x >= 1.f) ? (uint8_t) 255 : (this->x <= 0.f) ? (uint8_t) 0 : (uint8_t) ((this->x)*255.f);
+            uint8_t g = (this->y >= 1.f) ? (uint8_t) 255 : (this->y <= 0.f) ? (uint8_t) 0 : (uint8_t) ((this->y)*255.f);
+            uint8_t b = (this->z >= 1.f) ? (uint8_t) 255 : (this->z <= 0.f) ? (uint8_t) 0 : (uint8_t) ((this->z)*255.f);
             
             return (
                 0xff000000 | 

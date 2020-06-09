@@ -7,8 +7,8 @@ World World::Default() {
     auto light = PointLight(Point(-10,10,-10), Color(1,1,1));
 
     s1->material.color = Color(0.8, 1.0, 0.6);
-    s1->material.diffuse = 0.7;
-    s1->material.specular = 0.2;
+    s1->material.diffuse = 0.7f;
+    s1->material.specular = 0.2f;
 
     s2->SetTransform(Scaling(0.5, 0.5, 0.5));
 
@@ -83,7 +83,7 @@ bool World::IsShadowed(Tuple const &point) {
         auto h = Hit(xs);
         //If there is a hit
         // And t < distance
-        if(h.t > 0 && h.t < distance) {
+        if(h.t > 0.f && h.t < distance) {
             // Then the hit lies between the point and the light source
             // Point in shadow
             return true;

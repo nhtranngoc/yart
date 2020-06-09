@@ -6,7 +6,8 @@
 
 using namespace std;
 
-#define EPSILON 0.001
+#define STM32_EPSILON 0.001f
+#define EPSILON 0.0001
 bool equal(float x, float y);
 
 class Tuple {

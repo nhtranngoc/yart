@@ -6,10 +6,10 @@ Camera::Camera(uint32_t hsize_, uint32_t vsize_, float field_of_view_) {
     this->field_of_view = field_of_view_;
     this->transform = Matrix<4,4>::Identity();
 
-    float half_view = std::tan(field_of_view_ / 2);
+    float half_view = tanf(field_of_view_ / 2.f);
     float aspect = (float) this->hsize / this->vsize;
 
-    if(aspect >= 1.0) {
+    if(aspect >= 1.f) {
         this->half_width = half_view;
         this->half_height = half_view / aspect;
     } else {
@@ -22,8 +22,8 @@ Camera::Camera(uint32_t hsize_, uint32_t vsize_, float field_of_view_) {
 
 Ray Camera::RayForPixel(uint32_t const px, uint32_t const py) {
     // Offset from the edge of the map to pixel's center
-    float xoffset = (px + 0.5) * this->pixel_size;
-    float yoffset = (py + 0.5) * this->pixel_size;
+    float xoffset = (px + 0.5f) * this->pixel_size;
+    float yoffset = (py + 0.5f) * this->pixel_size;
 
     // Untransformed coordinates of the pixel in world space
     // Camera looks toward -z, so +x is to the left

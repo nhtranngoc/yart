@@ -43,3 +43,13 @@ TEST(ColorTest, ConvertToHex) {
     Color c5(0.5,0.5,0.5);
     LONGS_EQUAL(0xff7f7f7f, c5.toHex());
 }
+
+TEST(ColorTest, ConvertToHexCannotOverflow) {
+    auto c = Color(2,2,2);
+    LONGS_EQUAL(0xffffffff, c.toHex());
+}
+
+TEST(ColorTest, ConvertToHexCannotUnderflow) {
+    auto c = Color(-1,-1,-1);
+    LONGS_EQUAL(0xff000000, c.toHex());
+}

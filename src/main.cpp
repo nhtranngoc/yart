@@ -38,19 +38,19 @@ int main(int argc, char **argv) {
 	auto image = Canvas(LCD_HEIGHT, LCD_WIDTH);
 	lcd_dma_init(raytracer_canvas);
 	lcd_spi_init();
-	// image.Init(raytracer_canvas);
+	image.Init(raytracer_canvas);
 	printf("Initialized.\n");
 	
 	// Draw origin point - this is mostly for testing purposes
 	Tuple origin = Point(CANVAS_ORIGINX,0,CANVAS_ORIGINY);
-	image.WritePixel(raytracer_canvas, origin.x, origin.z, Color::Blue());
+	image.WritePixel(raytracer_canvas, (uint32_t) origin.x, (uint32_t) origin.z, Color::Blue());
 	
 	// The floor is an extremely flattened sphere with a matte texture
 	auto floor = std::make_shared<Sphere>();
 	floor->SetTransform(Scaling(10,0.01,10));
 	floor->material = Material();
 	floor->material.color = Color(1,0.9,0.9);
-	floor->material.specular = 0;
+	floor->material.specular = 0.f;
 
 	// The wall on the left has the same scale and color as 
 	// the floor, but rotated and translated to place
@@ -62,7 +62,7 @@ int main(int argc, char **argv) {
 		Scaling(10, 0.01, 10));
 	left_wall->material = Material();
 	left_wall->material.color = Color(1,0.9,0.9);
-	left_wall->material.specular = 0;
+	left_wall->material.specular = 0.f;
 
 	// The wall on the right is idential to left wall, but 
 	// is rotated the opposite direction in y.
@@ -74,7 +74,7 @@ int main(int argc, char **argv) {
 		Scaling(10, 0.01, 10));
 	right_wall->material = Material();
 	right_wall->material.color = Color(1,0.9,0.9);
-	right_wall->material.specular = 0;
+	right_wall->material.specular = 0.f;
 
 	// The large sphere in the middle is a unit sphere
 	// translated upward slightly and colored green
@@ -82,24 +82,24 @@ int main(int argc, char **argv) {
 	middle->SetTransform(Translation(-0.5,1,0.5));
 	middle->material = Material();
 	middle->material.color = Color(0.1,1,0.5);
-	middle->material.diffuse = 0.7;
-	middle->material.specular = 0.3;
+	middle->material.diffuse = 0.7f;
+	middle->material.specular = 0.3f;
 
 	// The smaller green sphere on the right is scaled in half
 	auto right = std::make_shared<Sphere>();
 	right->SetTransform(Translation(1.5,0.5,-0.5) * Scaling(0.5,0.5,0.5));
 	right->material = Material();
 	right->material.color = Color(0.5,1,0.1);
-	right->material.diffuse = 0.7;
-	right->material.specular = 0.3;
+	right->material.diffuse = 0.7f;
+	right->material.specular = 0.3f;
 
 	// The smallest sphere is scaled by a third, before being translated
 	auto left = std::make_shared<Sphere>();
 	left->SetTransform(Translation(-1.5,0.33,-0.75) * Scaling(0.33,0.33,0.33));
 	left->material = Material();
 	left->material.color = Color(1,0.1,0.1);
-	left->material.diffuse = 0.7;
-	left->material.specular = 0.3;
+	left->material.diffuse = 0.7f;
+	left->material.specular = 0.3f;
 
 	// The light source is white, shining from above and to the left
 	auto w = World();

@@ -5,7 +5,7 @@
 #include <cmath>
 #include <math.h>
 
-const double pi = 3.14159265358979323846;
+const float pi = 3.141592f;
 
 Matrix<4,4> Translation(float, float, float);
 Matrix<4,4> Scaling(float, float, float);
