@@ -1,5 +1,6 @@
 #include <CppUTest/TestHarness.h>
 #include "intersection.h"
+#include "sphere.h"
 
 TEST_GROUP(IntersectionTest){};
 

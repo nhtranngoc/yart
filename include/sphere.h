@@ -1,6 +1,7 @@
 #ifndef SPHERE_H
 #define SPHERE_H
 
+#include "shape.h"
 #include "ray.h"
 #include "tuple.h"
 #include "intersection.h"
@@ -10,20 +11,12 @@
 
 class Intersection;
 class Ray;
+class Shape;
 
-class Sphere : public enable_shared_from_this<Sphere> {
+class Sphere : public Shape {
     public:
-    Matrix<4,4> transform;
-    Material material;
-
-    Sphere() :
-        transform(Matrix<4,4>::Identity()),
-        material(Material()) {}
-
-    std::vector<Intersection> Intersect(Ray);
-    void SetTransform(Matrix<4,4> const &);
-    Tuple NormalAt(Tuple const &);
-    bool operator== (Sphere const &);
+    std::vector<Intersection> Intersect(Ray &);
+    Tuple LocalNormalAt(Tuple const&);
 };
 
 #endif // SPHERE_H_

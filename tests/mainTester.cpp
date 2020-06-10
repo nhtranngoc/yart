@@ -11,8 +11,7 @@
 #include "transformation.cpp"
 #include "world.cpp"
 #include "camera.cpp"
-
-#define EPSILON 0.0001
+#include "shape.cpp"
 
 int main(int argc, char **argv) {
     return CommandLineTestRunner::RunAllTests(argc, argv);

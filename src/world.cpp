@@ -19,7 +19,7 @@ World World::Default() {
     return retVal;
 }
 
-std::vector<Intersection> World::Intersect(Ray const &r) {
+std::vector<Intersection> World::Intersect(Ray &r) {
     std::vector<Intersection> retVal;
     for (auto const& obj : this->objects) {
         auto xs = obj->Intersect(r);

@@ -6,8 +6,14 @@
 
 using namespace std;
 
-#define STM32_EPSILON 0.001f
-#define EPSILON 0.0001
+// Conditional compilation, since STM32 float is calculated differently than x86
+
+#ifdef STM32
+#define EPSILON 0.01f
+#else
+#define EPSILON 0.0001f
+#endif
+
 bool equal(float x, float y);
 
 class Tuple {

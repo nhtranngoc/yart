@@ -1,6 +1,6 @@
 #include "sphere.h"
 
-std::vector<Intersection> Sphere::Intersect(Ray r) {
+std::vector<Intersection> Sphere::Intersect(Ray &r) {
     auto rayTransform = (this->transform).Inverse();
     auto r2 = r.Transform(rayTransform);
 
@@ -27,23 +27,6 @@ std::vector<Intersection> Sphere::Intersect(Ray r) {
         Intersection(t2, shared_from_this()));
 }
 
-void Sphere::SetTransform(Matrix<4,4> const &m) {
-    this->transform = m;
-}
-
-Tuple Sphere::NormalAt(Tuple const &p) {
-    auto obj_p = (this->transform).Inverse() * p;
-    auto obj_n = obj_p - Point(0,0,0);
-
-    auto world_n = (this->transform).Inverse().Transpose() * obj_n;
-    world_n.w = 0;
-
-    return world_n.Normalize();
-}
-
-bool Sphere::operator== (Sphere const &other) {
-    return (
-        this->material == other.material &&
-        this->transform == other.transform
-    );
+Tuple Sphere::LocalNormalAt(Tuple const &p) {
+    return p - Point(0,0,0);
 }

@@ -25,7 +25,7 @@ class World {
 
     static World Default();
 
-    std::vector<Intersection> Intersect(Ray const &);
+    std::vector<Intersection> Intersect(Ray &);
     Color ShadeHit(Computations const &);
     Color ColorAt(Ray &);
     bool IsShadowed(Tuple const &);

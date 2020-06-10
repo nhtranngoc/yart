@@ -1,6 +1,6 @@
 #include "intersection.h"
 
-Intersection::Intersection(float t_, std::shared_ptr<Sphere> object_) {
+Intersection::Intersection(float t_, std::shared_ptr<Shape> object_) {
     this->t = t_;
     this->object = object_;
 }

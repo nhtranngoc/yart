@@ -38,6 +38,8 @@ add_custom_target(libopencm3 make WORKING_DIRECTORY ${OPENCM3_DIR})
 
 
 # Src 
+# Conditional to change float computation between stm32 and testing host
+add_definitions(-DSTM32)
 
 include_directories(../include)
 

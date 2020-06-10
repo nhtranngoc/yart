@@ -4,14 +4,14 @@
 #include <vector>
 #include <algorithm>
 #include <memory>
-#include "sphere.h"
+#include "shape.h"
 #include "tuple.h"
 
-class Sphere;
+class Shape;
 
 struct Computations {
     float t;
-    std::shared_ptr<Sphere> object;
+    std::shared_ptr<Shape> object;
     Tuple point;
     Tuple eyev;
     Tuple normalv;
@@ -21,10 +21,10 @@ struct Computations {
 
 class Intersection {
     public:
-    Intersection(float, std::shared_ptr<Sphere>);
+    Intersection(float, std::shared_ptr<Shape>);
 
     float t;
-    std::shared_ptr<Sphere> object;
+    std::shared_ptr<Shape> object;
 
     bool operator== (const Intersection &);
     bool operator< (const Intersection &);
