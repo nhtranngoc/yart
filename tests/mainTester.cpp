@@ -12,6 +12,7 @@
 #include "world.cpp"
 #include "camera.cpp"
 #include "shape.cpp"
+#include "plane.cpp"
 
 int main(int argc, char **argv) {
     return CommandLineTestRunner::RunAllTests(argc, argv);

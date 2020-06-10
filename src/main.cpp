@@ -15,6 +15,8 @@
 #include "pointlight.h"
 #include "world.h"
 #include "camera.h"
+#include "plane.h"
+#include "shape.h"
 
 #define CANVAS_ORIGINX (LCD_HEIGHT/2)
 #define CANVAS_ORIGINY (LCD_WIDTH/2)
@@ -45,36 +47,8 @@ int main(int argc, char **argv) {
 	Tuple origin = Point(CANVAS_ORIGINX,0,CANVAS_ORIGINY);
 	image.WritePixel(raytracer_canvas, (uint32_t) origin.x, (uint32_t) origin.z, Color::Blue());
 	
-	// The floor is an extremely flattened sphere with a matte texture
-	auto floor = std::make_shared<Sphere>();
-	floor->SetTransform(Scaling(10,0.01,10));
-	floor->material = Material();
-	floor->material.color = Color(1,0.9,0.9);
-	floor->material.specular = 0.f;
-
-	// The wall on the left has the same scale and color as 
-	// the floor, but rotated and translated to place
-	auto left_wall = std::make_shared<Sphere>();
-	left_wall->SetTransform(
-		Translation(0,0,5) * 
-		RotationY(-pi/4) * 
-		RotationX(pi/2) *
-		Scaling(10, 0.01, 10));
-	left_wall->material = Material();
-	left_wall->material.color = Color(1,0.9,0.9);
-	left_wall->material.specular = 0.f;
-
-	// The wall on the right is idential to left wall, but 
-	// is rotated the opposite direction in y.
-	auto right_wall = std::make_shared<Sphere>();
-	right_wall->SetTransform(
-		Translation(0,0,5) * 
-		RotationY(pi/4) * 
-		RotationX(pi/2) *
-		Scaling(10, 0.01, 10));
-	right_wall->material = Material();
-	right_wall->material.color = Color(1,0.9,0.9);
-	right_wall->material.specular = 0.f;
+	//The plane is... an object on the xz plane
+	auto plane = std::make_shared<Plane>();
 
 	// The large sphere in the middle is a unit sphere
 	// translated upward slightly and colored green
@@ -103,8 +77,8 @@ int main(int argc, char **argv) {
 
 	// The light source is white, shining from above and to the left
 	auto w = World();
-	w.lights.push_back(PointLight(Point(-10,10,-10), Color::White()));
-	w.objects.insert(w.objects.end(), {floor, left_wall, right_wall, middle, right, left});
+	w.lights.push_back(PointLight(Point(-10,10,-10), Color(::White())));
+	w.objects.insert(w.objects.end(), {plane, middle, right, left});
 
 	auto camera = Camera(LCD_HEIGHT, LCD_WIDTH, pi/3);
 	camera.transform = View(
