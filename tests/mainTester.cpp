@@ -13,6 +13,7 @@
 #include "camera.cpp"
 #include "shape.cpp"
 #include "plane.cpp"
+#include "pattern.cpp"
 
 int main(int argc, char **argv) {
     return CommandLineTestRunner::RunAllTests(argc, argv);

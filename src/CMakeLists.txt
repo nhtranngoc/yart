@@ -42,8 +42,15 @@ add_custom_target(libopencm3 make WORKING_DIRECTORY ${OPENCM3_DIR})
 add_definitions(-DSTM32)
 
 include_directories(../include)
+include_directories(../include/lcd)
+include_directories(../include/shapes)
+include_directories(../include/patterns)
 
-file(GLOB USER_SOURCES ${CMAKE_SOURCE_DIR}/src/*.cpp ${CMAKE_SOURCE_DIR}/src/*.c)
+file(GLOB USER_SOURCES 
+    ${CMAKE_SOURCE_DIR}/src/*.cpp 
+    ${CMAKE_SOURCE_DIR}/src/lcd/*.c 
+    ${CMAKE_SOURCE_DIR}/src/shapes/*.cpp 
+    ${CMAKE_SOURCE_DIR}/src/patterns/*.cpp)
 
 add_executable(yart.elf ${USER_SOURCES})
 target_link_libraries(yart.elf opencm3_stm32f4)

@@ -31,7 +31,7 @@ std::vector<Intersection> World::Intersect(Ray &r) {
     return retVal;
 }
 
-Color World::ShadeHit(Computations const &comps) {
+Color World::ShadeHit(Computations &comps) {
     auto shadowed = this->IsShadowed(comps.over_point);
     Color finalShade = Color(0,0,0);
     // Iterate through all light sources
@@ -39,6 +39,7 @@ Color World::ShadeHit(Computations const &comps) {
     for(const auto lightSource : this->lights) {
         finalShade = finalShade + Lighting(
             comps.object->material,
+            comps.object,
             lightSource,
             comps.over_point,
             comps.eyev,

@@ -1,5 +1,4 @@
-#ifndef SHAPE_H
-#define SHAPE_H
+#pragma once 
 
 #include "material.h"
 #include "matrix.h"
@@ -36,5 +35,3 @@ class TestShape : public Shape {
     std::vector<Intersection> Intersect(Ray &r) {return std::vector<Intersection> {};}
     Tuple LocalNormalAt(Tuple const &p) {return Vector(p.x, p.y, p.z);}
 };
-
-#endif // SHAPE_H_

@@ -26,7 +26,6 @@ class Color : public Tuple {
         friend inline Color operator * (Color const &c1, Color const c2) {return Color(c1.x * c2.x, c1.y * c2.y, c1.z * c2.z);}
         friend inline Color operator * (Color const &c1, float const f) {return Color(c1.x * f, c1.y * f, c1.z * f);}
         friend inline Color operator + (Color const &c1, Color const c2) {return Color(c1.x + c2.x, c1.y + c2.y, c1.z + c2.z);}
-
         static Color Red() {return Color(1,0,0);}
         static Color Green() {return Color(0,1,0);}
         static Color Blue() {return Color(0,0,1);}

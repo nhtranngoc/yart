@@ -1,9 +1,11 @@
-#ifndef POINTLIGHT_H
-#define POINTLIGHT_H
+#pragma once 
 
 #include "color.h"
 #include "material.h"
 #include "tuple.h"
+#include "shape.h"
+
+class Shape;
 
 class PointLight {
     public:
@@ -16,6 +18,4 @@ class PointLight {
     bool operator== (PointLight const &);
 };
 
-Color Lighting(Material const&, PointLight const&, Tuple const&, Tuple const&, Tuple const&, bool in_shadow = false);
-
-#endif // POINTLIGHT_H_
+Color Lighting(Material &, std::shared_ptr<Shape>, PointLight const&, Tuple &, Tuple const&, Tuple const&, bool in_shadow = false);

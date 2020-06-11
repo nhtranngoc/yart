@@ -1,11 +1,12 @@
-#ifndef MATERIAL_H
-#define MATERIAL_H
+#pragma once 
 
 #include "color.h"
+#include "pattern.h"
 
 class Material {
     public:
     Color color;
+    Pattern pattern;
     float ambient, diffuse, specular, shininess;
 
     // Default material
@@ -17,6 +18,5 @@ class Material {
         shininess(200.f) {}
 
     bool operator== (Material const &);
+    Color ColorAt(std::shared_ptr<Shape>, Tuple const &);
 };
-
-#endif // MATERIAL_H_

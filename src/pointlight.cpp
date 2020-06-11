@@ -1,8 +1,8 @@
 #include "pointlight.h"
 
-Color Lighting(Material const& material, PointLight const& light, Tuple const& point, Tuple const& eyev, Tuple const& normalv, bool in_shadow) {
+Color Lighting(Material & material, std::shared_ptr<Shape> object, PointLight const& light, Tuple & point, Tuple const& eyev, Tuple const& normalv, bool in_shadow) {
     // Combine surface color with light's intensity/color
-    Color effective_color = material.color * light.intensity;
+    Color effective_color = material.ColorAt(object, point) * light.intensity;
 
     // Find direction to the light source
     auto lightv = (light.position - point).Normalize();

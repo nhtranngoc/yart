@@ -9,3 +9,12 @@ bool Material::operator== (Material const &other) {
         equal(this->shininess, other.shininess)
     );
 }
+
+Color Material::ColorAt(std::shared_ptr<Shape> object, Tuple const &point) {
+    // If default pattern (ie no pattern)
+    if(this->pattern.a == Color::White() && this->pattern.b == Color::White()) {
+        return this->color;
+    }
+
+    return this->pattern.StripeAt(object, point);
+}

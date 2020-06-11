@@ -15,9 +15,19 @@ endif()
 set(CMAKE_C_FLAGS "${COMMON_C_FLAGS}")
 set(CMAKE_CXX_FLAGS "${COMMON_CXX_FLAGS}" CACHE STRING "compiler flags")
 
-file(GLOB USER_SOURCES ${CMAKE_SOURCE_DIR}/tests/*.c ${CMAKE_SOURCE_DIR}/tests/*.cpp)
+file(GLOB USER_SOURCES 
+    ${CMAKE_SOURCE_DIR}/tests/*.c 
+    ${CMAKE_SOURCE_DIR}/tests/*.cpp)
 
-include_directories(${CPPUTEST_INCLUDE_DIRS} ../src/ ../include/)
+include_directories(${CPPUTEST_INCLUDE_DIRS} 
+    ../src/ 
+    ../src/lcd/
+    ../src/shapes/
+    ../src/patterns/
+    ../include/ 
+    ../include/lcd/ 
+    ../include/shapes/ 
+    ../include/patterns/)
 link_directories(${CPPUTEST_LIBRARIES})
 
 add_executable(yart_test.bin ${USER_SOURCES})
