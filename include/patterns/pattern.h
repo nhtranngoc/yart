@@ -15,14 +15,22 @@ class Pattern {
     Color b;
     Matrix<4,4> transform;
 
+    // Default pattern (none)
     Pattern() : 
         a(Color::White()), 
         b(Color::White()),
         transform(Matrix<4,4>::Identity()) {}
     
-    void SetTransform(Matrix<4,4> const& m) {this->transform = m;}
-    Color StripeAt(Tuple const &);
-    Color StripeAt(std::shared_ptr<Shape>, Tuple const &);
+    // Subclass pattern constructor
+    Pattern(Color a_, Color b_) :
+        a(a_),
+        b(b_),
+        transform(Matrix<4,4>::Identity()) {}
+
+    virtual Color PatternAtPoint(Tuple const &) = 0;
+    Color PatternAt(std::shared_ptr<Shape>, Tuple const &);
 };
 
-Pattern StripePattern(Color const &, Color const &);
+class TestPattern : public Pattern {
+    Color PatternAtPoint(Tuple const &p) {return Color(p.x, p.y, p.z);}
+};

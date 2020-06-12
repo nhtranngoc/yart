@@ -2,21 +2,18 @@
 
 #include "color.h"
 #include "pattern.h"
+#include "stripe.h"
 
 class Material {
     public:
     Color color;
-    Pattern pattern;
+    std::shared_ptr<Pattern> pattern;
     float ambient, diffuse, specular, shininess;
 
     // Default material
-    Material() :
-        color(Color(1,1,1)),
-        ambient(0.1f),
-        diffuse(0.9f),
-        specular(0.9f),
-        shininess(200.f) {}
+    Material();
 
     bool operator== (Material const &);
+    std::shared_ptr<Pattern>& GetPattern() {return pattern;}
     Color ColorAt(std::shared_ptr<Shape>, Tuple const &);
 };

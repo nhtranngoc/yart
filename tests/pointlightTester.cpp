@@ -5,12 +5,10 @@
 #include "material.h"
 #include "sphere.h"
 
-Material m;
 Tuple position;
 
 TEST_GROUP(PointLightTest) {
     void setup() {
-        m = Material();
         position = Point(0,0,0);
     }
 };
@@ -25,6 +23,7 @@ TEST(PointLightTest, APointLightHasAPositionAndIntensity) {
 }
 
 TEST(PointLightTest, LightingWithEyeBetweenLightAndSurface) {
+    auto m = Material();
     auto eyev = Vector(0,0,-1);
     auto normalv = Vector(0,0,-1);
     auto light = PointLight(Point(0,0,-10), Color(1,1,1));
@@ -36,6 +35,7 @@ TEST(PointLightTest, LightingWithEyeBetweenLightAndSurface) {
 }
 
 TEST(PointLightTest, LightingWithEyeBetweenLightAndSurfaceOffset45) {
+    auto m = Material();
     auto eyev = Vector(
         0,
         (float) sqrt(2) / 2,
@@ -51,6 +51,7 @@ TEST(PointLightTest, LightingWithEyeBetweenLightAndSurfaceOffset45) {
 }
 
 TEST(PointLightTest, LightingWithEyeOppositeSurfaceLightOffset45) {
+    auto m = Material();
     auto eyev = Vector(0,0,-1);
     auto normalv = Vector(0,0,-1);
     auto light = PointLight(Point(0,10,-10), Color(1,1,1));
@@ -62,6 +63,7 @@ TEST(PointLightTest, LightingWithEyeOppositeSurfaceLightOffset45) {
 }
 
 TEST(PointLightTest, LightingWithEyeInPathOfReflectionVector) {
+    auto m = Material();
     auto eyev = Vector(
         0,
         (float) -sqrt(2) / 2,
@@ -76,6 +78,7 @@ TEST(PointLightTest, LightingWithEyeInPathOfReflectionVector) {
 }
 
 TEST(PointLightTest, LightingWithLightBehindSurface) {
+    auto m = Material();
     auto eyev = Vector(0,0,-1);
     auto normalv = Vector(0,0,-1);
     auto light = PointLight(Point(0,0,10), Color(1,1,1));
@@ -87,6 +90,7 @@ TEST(PointLightTest, LightingWithLightBehindSurface) {
 }
 
 TEST(PointLightTest, LightingWithTheSurfaceInShadow) {
+    auto m = Material();
     auto eyev = Vector(0,0,-1);
     auto normalv = Vector(0,0,-1);
     auto light = PointLight(Point(0,0,-10), Color(1,1,1));

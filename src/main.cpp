@@ -50,7 +50,7 @@ int main(int argc, char **argv) {
 	
 	//The plane is... an object on the xz plane
 	auto plane = std::make_shared<Plane>();
-	plane->material.pattern = StripePattern(Color::Red(), Color::Blue());
+	plane->material.pattern = std::make_shared<StripePattern>(Color::Red(), Color::Blue());
 
 	// The large sphere in the middle is a unit sphere
 	// translated upward slightly and colored green
@@ -60,7 +60,8 @@ int main(int argc, char **argv) {
 	middle->material.color = Color(0.1,1,0.5);
 	middle->material.diffuse = 0.7f;
 	middle->material.specular = 0.3f;
-	middle->material.pattern = StripePattern(Color::Black(), Color::White());
+	middle->material.pattern = std::make_shared<StripePattern>(Color::Black(), Color::White());
+	middle->material.pattern->transform = Scaling(0.5,0.5,0.5) * RotationZ(pi/2);
 
 	// The smaller green sphere on the right is scaled in half
 	auto right = std::make_shared<Sphere>();
@@ -81,7 +82,6 @@ int main(int argc, char **argv) {
 	// The light source is white, shining from above and to the left
 	auto w = World();
 	w.lights.push_back(PointLight(Point(-10,10,-10), Color::White()));
-	w.lights.push_back(PointLight(Point(10,10,10), Color::White()));
 	w.objects.insert(w.objects.end(), {plane, middle, right, left});
 
 	auto camera = Camera(LCD_HEIGHT, LCD_WIDTH, pi/3);

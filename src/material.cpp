@@ -1,5 +1,14 @@
 #include "material.h"
 
+Material::Material() :
+        color(Color(1,1,1)),
+        ambient(0.1f),
+        diffuse(0.9f),
+        specular(0.9f),
+        shininess(200.f),
+        pattern(std::make_shared<StripePattern>(Color::White(), Color::White())) {}
+
+
 bool Material::operator== (Material const &other) {
     return (
         this->color == other.color &&
@@ -12,9 +21,9 @@ bool Material::operator== (Material const &other) {
 
 Color Material::ColorAt(std::shared_ptr<Shape> object, Tuple const &point) {
     // If default pattern (ie no pattern)
-    if(this->pattern.a == Color::White() && this->pattern.b == Color::White()) {
+    if(pattern->a == Color::White() && pattern->b == Color::White()) {
         return this->color;
     }
 
-    return this->pattern.StripeAt(object, point);
+    return this->pattern->PatternAt(object, point);
 }

@@ -1,93 +1,53 @@
 #include <CppUTest/TestHarness.h>
 #include "pattern.h"
-#include "material.h"
-#include "pointlight.h"
+#include "transformation.h"
+#include "matrix.h"
 #include "sphere.h"
 
 TEST_GROUP(PatternTest) {};
 
-TEST(PatternTest, CreateAStripePattern) {
-    auto pattern = StripePattern(Color::White(), Color::Black());
-
-    CHECK(pattern.a == Color::White());
-    CHECK(pattern.b == Color::Black());
-}
-
-TEST(PatternTest, AStripePatternIsConstantInY) {
-    auto pattern = StripePattern(Color::White(), Color::Black());
-
-    CHECK(pattern.StripeAt(Point(0,0,0)) == Color::White());
-    CHECK(pattern.StripeAt(Point(0,1,0)) == Color::White());
-    CHECK(pattern.StripeAt(Point(0,2,0)) == Color::White());
-}
-
-TEST(PatternTest, AStripePatternIsConstantInZ) {
-    auto pattern = StripePattern(Color::White(), Color::Black());
-
-    CHECK(pattern.StripeAt(Point(0,0,0)) == Color::White());
-    CHECK(pattern.StripeAt(Point(0,1,0)) == Color::White());
-    CHECK(pattern.StripeAt(Point(0,2,0)) == Color::White());
-}
-
-TEST(PatternTest, AStripePatternAlternatesInX) {
-    auto pattern = StripePattern(Color::White(), Color::Black());
-
-    CHECK(pattern.StripeAt(Point(0,0,0)) == Color::White());
-    CHECK(pattern.StripeAt(Point(0.9,0,0)) == Color::White());
-    CHECK(pattern.StripeAt(Point(1,0,0)) == Color::Black());
-    CHECK(pattern.StripeAt(Point(-0.1,0,0)) == Color::Black());
-    CHECK(pattern.StripeAt(Point(-1,0,0)) == Color::Black());
-    CHECK(pattern.StripeAt(Point(-1.1,0,0)) == Color::White());
-}
-
-TEST(PatternTest, LightingWithAPatternApplied) {
-    auto m = Material();
-    m.pattern = StripePattern(Color::White(), Color::Black());
-    m.ambient = 1;
-    m.diffuse = 0;
-    m.specular = 0;
-    auto eyev = Vector(0,0,-1);
-    auto normalv = Vector(0,0,-1);
-    auto light = PointLight(Point(0,0,-10), Color::White());
-    auto object = std::make_shared<Sphere>();
+TEST(PatternTest, TheDefaultPatternTransformation) {
+    auto pattern = std::make_shared<TestPattern>();
+    auto identity = Matrix<4,4>::Identity();
     
-    auto p1 = Point(0.9,0,0);
-    auto p2 = Point(1.1,0,0);
-
-    auto c1 = Lighting(m, object,  light, p1, eyev, normalv, false);
-    auto c2 = Lighting(m, object, light, p2, eyev, normalv, false);
-
-    CHECK(c1 == Color::White());
-    CHECK(c2 == Color::Black());
+    CHECK(pattern->transform == identity);
 }
 
-TEST(PatternTest, StripesWithAnObjectTransformation) {
-    auto object = std::make_shared<Sphere>();
-    object->SetTransform(Scaling(2,2,2));
-    auto pattern = StripePattern(Color::White(), Color::Black());
+TEST(PatternTest, AssigningATransformation) {
+    auto pattern = std::make_shared<TestPattern>();
 
-    auto c = pattern.StripeAt(object, Point(1.5,0,0));
+    pattern->transform = Translation(1,2,3);
 
-    CHECK(c == Color::White());
+    CHECK(pattern->transform == Translation(1,2,3));
 }
 
-TEST(PatternTest, StripesWithAPatternTransformation) {
+TEST(PatternTest, PatternsWithAnObjectTransformation) {
     auto object = std::make_shared<Sphere>();
-    auto pattern = StripePattern(Color::White(), Color::Black());
-    pattern.SetTransform(Scaling(2,2,2));
+    object->transform = Scaling(2,2,2);
+    auto pattern = std::make_shared<TestPattern>();
 
-    auto c = pattern.StripeAt(object, Point(1.5,0,0));
+    auto c = pattern->PatternAt(object, Point(2,3,4));
 
-    CHECK(c == Color::White());
+    CHECK(c == Color(1,1.5,2));
 }
 
-TEST(PatternTest, StripesWithBothAnObjectAndPatternTransform) {
+TEST(PatternTest, PatternsWithAPatternTransformation) {
     auto object = std::make_shared<Sphere>();
-    object->SetTransform(Scaling(2,2,2));
-    auto pattern = StripePattern(Color::White(), Color::Black());
-    pattern.SetTransform(Translation(0.5,0,0));
+    auto pattern = std::make_shared<TestPattern>();
+    pattern->transform = Scaling(2,2,2);
 
-    auto c = pattern.StripeAt(object, Point(2.5,0,0));
+    auto c = pattern->PatternAt(object, Point(2,3,4));
 
-    CHECK(c == Color::White());
+    CHECK(c == Color(1,1.5,2));
+}
+
+TEST(PatternTest, PatternsWithBothAnObjectAndPatternTransform) {
+    auto object = std::make_shared<Sphere>();
+    object->transform = Scaling(2,2,2);
+    auto pattern = std::make_shared<TestPattern>();
+    pattern->transform = Translation(0.5,1,1.5);
+
+    auto c = pattern->PatternAt(object, Point(2.5,3,3.5));
+
+    CHECK(c == Color(0.75,0.5,0.25));
 }
