@@ -6,6 +6,7 @@ Material::Material() :
         diffuse(0.9f),
         specular(0.9f),
         shininess(200.f),
+        reflective(0.0f),
         pattern(std::make_shared<StripePattern>(Color::White(), Color::White())) {}
 
 

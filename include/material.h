@@ -8,7 +8,7 @@ class Material {
     public:
     Color color;
     std::shared_ptr<Pattern> pattern;
-    float ambient, diffuse, specular, shininess;
+    float ambient, diffuse, specular, shininess, reflective;
 
     // Default material
     Material();

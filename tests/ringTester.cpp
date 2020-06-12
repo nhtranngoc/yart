@@ -15,5 +15,5 @@ TEST(RingTest, ARingShouldExtendInBothXAndY) {
     CHECK(c1 == Color::White());
     CHECK(c2 == Color::Black());
     CHECK(c3 == Color::Black());
-    CHECK(c4 == Color(0.708,0,0.708));
+    CHECK(c4 == Color::Black());
 }

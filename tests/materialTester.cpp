@@ -13,3 +13,9 @@ TEST(MaterialTest, DefaultMaterial) {
     DOUBLES_EQUAL(0.9, m.specular, EPSILON);
     DOUBLES_EQUAL(200, m.shininess, EPSILON);
 }
+
+TEST(MaterialTest, ReflectivityForTheDefaultMaterial) {
+    auto m = Material();
+
+    DOUBLES_EQUAL(0.0, m.reflective, EPSILON);
+}
