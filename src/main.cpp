@@ -18,6 +18,9 @@
 #include "plane.h"
 #include "shape.h"
 #include "pattern.h"
+#include "ring.h"
+#include "checkers.h"
+#include "gradient.h"
 
 #define CANVAS_ORIGINX (LCD_HEIGHT/2)
 #define CANVAS_ORIGINY (LCD_WIDTH/2)
@@ -50,7 +53,7 @@ int main(int argc, char **argv) {
 	
 	//The plane is... an object on the xz plane
 	auto plane = std::make_shared<Plane>();
-	plane->material.pattern = std::make_shared<StripePattern>(Color::Red(), Color::Blue());
+	plane->material.pattern = std::make_shared<StripePattern>(Color::Green(), Color::Blue());
 
 	// The large sphere in the middle is a unit sphere
 	// translated upward slightly and colored green
@@ -60,7 +63,7 @@ int main(int argc, char **argv) {
 	middle->material.color = Color(0.1,1,0.5);
 	middle->material.diffuse = 0.7f;
 	middle->material.specular = 0.3f;
-	middle->material.pattern = std::make_shared<StripePattern>(Color::Black(), Color::White());
+	middle->material.pattern = std::make_shared<GradientPattern>(Color::Red(), Color(1,1,0));
 	middle->material.pattern->transform = Scaling(0.5,0.5,0.5) * RotationZ(pi/2);
 
 	// The smaller green sphere on the right is scaled in half
@@ -70,6 +73,7 @@ int main(int argc, char **argv) {
 	right->material.color = Color(0.5,1,0.1);
 	right->material.diffuse = 0.7f;
 	right->material.specular = 0.3f;
+	right->material.pattern = std::make_shared<RingPattern>(Color::Blue(), Color::White());
 
 	// The smallest sphere is scaled by a third, before being translated
 	auto left = std::make_shared<Sphere>();
@@ -78,6 +82,7 @@ int main(int argc, char **argv) {
 	left->material.color = Color(1,0.1,0.1);
 	left->material.diffuse = 0.7f;
 	left->material.specular = 0.3f;
+	left->material.pattern = std::make_shared<CheckersPattern>(Color::Blue(), Color::Black());
 
 	// The light source is white, shining from above and to the left
 	auto w = World();

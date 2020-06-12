@@ -15,6 +15,9 @@
 #include "plane.cpp"
 #include "pattern.cpp"
 #include "stripe.cpp"
+#include "gradient.cpp"
+#include "ring.cpp"
+#include "checkers.cpp"
 
 int main(int argc, char **argv) {
     return CommandLineTestRunner::RunAllTests(argc, argv);
